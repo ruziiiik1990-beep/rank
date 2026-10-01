@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +9,6 @@
 
 body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', sans-serif; }
 
-/* Стиль обёртки — как standings-wrapper из твоего кода */
 .rating-container {
   max-width: 600px;
   margin: 32px auto;
@@ -21,7 +21,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   box-shadow: 0 4px 20px rgba(10,42,107,0.3);
 }
 
-/* Заголовок — как standings-title */
 .rating-title {
   color: #4a9eff;
   font-size: 20px;
@@ -32,7 +31,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-align: center;
 }
 
-/* Таблица — как standings-table */
 .rating-table {
   width: 100%;
   border-collapse: collapse;
@@ -45,6 +43,8 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left;
   vertical-align: middle;
+  /* Тот же цвет, что и у контейнера */
+  background: rgba(10,42,107,0.3);
 }
 
 .rating-table th {
@@ -53,11 +53,11 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.5px;
+  background: rgba(10,42,107,0.3);
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-/* Колонка места — по центру */
 .pos-cell {
   width: 40px;
   text-align: center;
@@ -69,7 +69,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
 .pos-cell.second { color: #C0C0C0; font-size: 17px; }
 .pos-cell.third { color: #CD7F32; font-size: 16px; }
 
-/* Игрок — слева */
 .name-cell {
   font-weight: 600;
   font-size: 15px;
@@ -78,7 +77,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-/* Чемпион, Финалист, Чак-чак — по центру */
 .champ-cell, .finalist-cell, .points-cell {
   text-align: center;
 }
@@ -117,19 +115,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   margin-left: 6px;
 }
 
-/* Бейдж чемпиона — как в твоём коде */
-.champion-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, #ffd700, #ffb300);
-  color: #1a1a2e;
-  font-size: 9px;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-left: 6px;
-  text-transform: uppercase;
-}
-
 .rating-empty {
   text-align: center;
   color: rgba(255,255,255,0.3);
@@ -145,7 +130,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   margin-top: 12px;
 }
 
-/* Админ-секция — как admin-login-row */
 .admin-section {
   text-align: center;
   margin-top: 20px;
@@ -301,11 +285,9 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
       var pointsClass = row.points > 0 ? '' : ' zero';
       var logoHtml = row.points > 0 ? ' <img src="' + LOGO_URL + '" class="points-logo" alt="">' : '';
 
-      var badge = pos === 1 ? ' <span class="champion-badge">ЧЕМПИОН</span>' : '';
-
       html += '<tr>'
         + '<td class="pos-cell' + posClass + '">' + pos + '</td>'
-        + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + badge + '</td>'
+        + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</td>'
         + '<td class="champ-cell' + champClass + '">' + row.champ + '</td>'
         + '<td class="finalist-cell' + finalistClass + '">' + row.finalist + '</td>'
         + '<td class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</td>'
