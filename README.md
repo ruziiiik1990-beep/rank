@@ -7,7 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: transparent; font-family: 'Inter', sans-serif; }
+body { background: transparent !important; font-family: 'Inter', sans-serif; }
 
 .rating-container {
   max-width: 600px; margin: 0 auto; padding: 24px;
@@ -24,33 +24,34 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
 
 .rating-table {
   width: 100%; border-collapse: collapse;
-  background: transparent; border-radius: 8px; overflow: hidden;
-}
-.rating-table th, .rating-table td {
-  padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.08);
-  text-align: left; vertical-align: middle;
+  background: transparent !important;
+  border-radius: 8px; overflow: hidden;
 }
 .rating-table th {
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,167,38,0.2);
+  text-align: left; vertical-align: middle;
   font-weight: 700; color: #ffa726;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
-  background: transparent;
+  background: transparent !important;
+}
+.rating-table td {
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,167,38,0.1);
+  text-align: left; vertical-align: middle;
+  background: transparent !important;
 }
 .rating-table tr:last-child td { border-bottom: none; }
 
-.rank-cell { width: 40px; text-align: center; font-weight: 700; color: #ffa726; }
-.rank-cell.first { color: #ffd700; font-size: 18px; }
-.rank-cell.second { color: #ffc107; font-size: 16px; }
-.rank-cell.third { color: #ff9800; font-size: 16px; }
+.rank-cell { width: 40px; text-align: center; font-weight: 700; font-size: 16px; color: #ffffff; }
+.rank-cell.first { color: #FFD700; font-size: 18px; font-weight: 800; }
+.rank-cell.second { color: #C0C0C0; font-size: 17px; font-weight: 800; }
+.rank-cell.third { color: #CD7F32; font-size: 16px; font-weight: 800; }
 
 .name-cell { font-weight: 600; font-size: 15px; color: #ffa726; }
 
 .points-cell { width: 120px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
 .points-cell.zero { color: rgba(255,167,38,0.3); font-size: 14px; }
 
-.points-logo {
-  width: 20px; height: 20px; border-radius: 50%;
-  vertical-align: middle; margin-left: 6px;
-}
+.points-logo { width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-left: 6px; }
 
 .rating-empty { text-align: center; color: #ffa726; font-size: 14px; padding: 32px; font-style: italic; opacity: 0.6; }
 .rating-loading { text-align: center; color: #ffa726; font-size: 14px; padding: 32px; opacity: 0.6; }
