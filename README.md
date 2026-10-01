@@ -7,84 +7,80 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', sans-serif; }
 
+/* Стиль обёртки — как standings-wrapper из твоего кода */
 .rating-container {
-  width: 100%;
-  margin: 0;
-  /* Минимальный отступ — только чтобы текст не прилипал к краю */
-  padding: 8px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
+  max-width: 600px;
+  margin: 32px auto;
+  padding: 20px;
+  background: rgba(10,42,107,0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(74,158,255,0.35);
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(10,42,107,0.3);
 }
 
+/* Заголовок — как standings-title */
 .rating-title {
-  text-align: center;
-  color: #ffa726;
-  font-size: 22px;
+  color: #4a9eff;
+  font-size: 20px;
   font-weight: 700;
+  margin-bottom: 16px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 12px;
-  padding: 0 8px;
+  text-align: center;
 }
 
+/* Таблица — как standings-table */
 .rating-table {
   width: 100%;
   border-collapse: collapse;
-  background: transparent !important;
-  border-radius: 0;
-  overflow: hidden;
+  color: #fff;
+}
+
+.rating-table th,
+.rating-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-align: left;
+  vertical-align: middle;
 }
 
 .rating-table th {
-  padding: 12px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  vertical-align: middle;
   font-weight: 700;
-  color: #ffffff;
+  color: rgba(255,255,255,0.9);
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.5px;
-  background: rgba(5,20,55,0.5) !important;
-}
-
-.rating-table td {
-  padding: 12px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  vertical-align: middle;
-  color: #ffffff;
-  background: rgba(5,20,55,0.5) !important;
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-.rank-cell {
+/* Колонка места — по центру */
+.pos-cell {
   width: 40px;
   text-align: center;
   font-weight: 800;
   font-size: 16px;
+  color: rgba(255,255,255,0.5);
 }
-.rank-cell.first { color: #FFD700; font-size: 18px; }
-.rank-cell.second { color: #C0C0C0; font-size: 17px; }
-.rank-cell.third { color: #CD7F32; font-size: 16px; }
+.pos-cell.first { color: #ffd700; font-size: 18px; }
+.pos-cell.second { color: #C0C0C0; font-size: 17px; }
+.pos-cell.third { color: #CD7F32; font-size: 16px; }
 
+/* Игрок — слева */
 .name-cell {
   font-weight: 600;
   font-size: 15px;
-  color: #ffffff;
-  text-align: left;
 }
-.name-cell.first { color: #FFD700; font-weight: 800; }
+.name-cell.first { color: #ffd700; font-weight: 800; }
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-.champ-cell,
-.finalist-cell,
-.points-cell {
+/* Чемпион, Финалист, Чак-чак — по центру */
+.champ-cell, .finalist-cell, .points-cell {
   text-align: center;
 }
 
@@ -93,7 +89,7 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   font-weight: 700;
   font-size: 15px;
 }
-.champ-cell.first { color: #FFD700; }
+.champ-cell.first { color: #ffd700; }
 .champ-cell.second { color: #C0C0C0; }
 .champ-cell.third { color: #CD7F32; }
 
@@ -102,17 +98,17 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   font-weight: 700;
   font-size: 15px;
 }
-.finalist-cell.first { color: #FFD700; }
+.finalist-cell.first { color: #ffd700; }
 .finalist-cell.second { color: #C0C0C0; }
 .finalist-cell.third { color: #CD7F32; }
 
 .points-cell {
   width: 100px;
   font-weight: 700;
-  color: #ffb74d;
+  color: #ffd700;
   font-size: 18px;
 }
-.points-cell.zero { color: rgba(255,167,38,0.5); font-size: 14px; }
+.points-cell.zero { color: rgba(255,215,0,0.3); font-size: 14px; }
 
 .points-logo {
   width: 20px;
@@ -122,76 +118,98 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   margin-left: 6px;
 }
 
-.rating-empty, .rating-loading {
-  text-align: center;
-  color: rgba(255,255,255,0.6);
-  font-size: 14px;
-  padding: 32px;
-  font-style: italic;
-}
-.rating-note {
-  text-align: center;
-  color: rgba(255,255,255,0.7);
-  font-size: 12px;
-  margin-top: 12px;
-  padding: 0 8px;
+/* Бейдж чемпиона — как в твоём коде */
+.champion-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  color: #1a1a2e;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  text-transform: uppercase;
 }
 
-.admin-section {
-  margin-top: 16px;
+.rating-empty {
   text-align: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 14px;
+  padding: 24px;
+  font-style: italic;
+}
+
+.rating-note {
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+/* Админ-секция — как admin-login-row */
+.admin-section {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 .admin-section input {
-  padding: 10px 14px;
-  border: 1px solid rgba(255,255,255,0.3);
+  padding: 12px 18px;
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 8px;
   background: rgba(0,0,0,0.4);
   color: #fff;
   font-size: 14px;
-  width: 180px;
+  width: 200px;
   font-family: 'Inter', sans-serif;
-  margin-right: 8px;
 }
 .admin-section input::placeholder { color: rgba(255,255,255,0.4); }
 .btn-admin {
-  padding: 10px 20px;
+  padding: 12px 26px;
   font-size: 14px;
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(135deg, #e65100, #f57c00);
-  border: none;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #0a2a6b, #1a4a8b);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: transform 0.2s, box-shadow 0.2s;
-  margin: 4px;
 }
-.btn-admin:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(230,81,0,0.4); }
+.btn-admin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(10,42,107,0.6);
+}
 .btn-reset {
-  padding: 10px 20px;
+  padding: 10px 24px;
   font-size: 14px;
   font-weight: 700;
   color: #fff;
   background: linear-gradient(135deg, #c0392b, #e74c3c);
-  border: none;
+  border: 2px solid rgba(255,255,255,0.2);
   border-radius: 8px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: transform 0.2s, box-shadow 0.2s;
   display: none;
-  margin: 4px auto;
+  margin: 16px auto 0;
 }
-.btn-reset:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(192,57,43,0.4); }
+.btn-reset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(192,57,43,0.4);
+}
 </style>
 </head>
 <body>
 
 <div class="rating-container">
-  <div class="rating-title">Рейтинг турнира</div>
+  <div class="rating-title">Турнирная таблица</div>
   <table class="rating-table">
     <thead>
       <tr>
-        <th class="rank-cell">#</th>
+        <th class="pos-cell">#</th>
         <th>Игрок</th>
         <th class="champ-cell">Чемпион</th>
         <th class="finalist-cell">Финалист</th>
@@ -199,17 +217,16 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
       </tr>
     </thead>
     <tbody id="ratingBody">
-      <tr><td colspan="5" class="rating-loading">Загрузка...</td></tr>
+      <tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>
     </tbody>
   </table>
   <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
 
   <div class="admin-section">
     <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
-    <button class="btn-admin" onclick="toggleAdmin()">Войти</button>
-    <br>
-    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
+    <button class="btn-admin" onclick="toggleAdmin()">Войти как админ</button>
   </div>
+  <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -274,20 +291,22 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
     var html = '';
     arr.forEach(function(row, i) {
       var pos = i + 1;
-      var rankClass = '';
+      var posClass = '';
       var nameClass = '';
       var champClass = '';
       var finalistClass = '';
-      if (pos === 1) { rankClass = nameClass = champClass = finalistClass = ' first'; }
-      else if (pos === 2) { rankClass = nameClass = champClass = finalistClass = ' second'; }
-      else if (pos === 3) { rankClass = nameClass = champClass = finalistClass = ' third'; }
+      if (pos === 1) { posClass = nameClass = champClass = finalistClass = ' first'; }
+      else if (pos === 2) { posClass = nameClass = champClass = finalistClass = ' second'; }
+      else if (pos === 3) { posClass = nameClass = champClass = finalistClass = ' third'; }
 
       var pointsClass = row.points > 0 ? '' : ' zero';
       var logoHtml = row.points > 0 ? ' <img src="' + LOGO_URL + '" class="points-logo" alt="">' : '';
 
+      var badge = pos === 1 ? ' <span class="champion-badge">ЧЕМПИОН</span>' : '';
+
       html += '<tr>'
-        + '<td class="rank-cell' + rankClass + '">' + pos + '</td>'
-        + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</td>'
+        + '<td class="pos-cell' + posClass + '">' + pos + '</td>'
+        + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + badge + '</td>'
         + '<td class="champ-cell' + champClass + '">' + row.champ + '</td>'
         + '<td class="finalist-cell' + finalistClass + '">' + row.finalist + '</td>'
         + '<td class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</td>'
@@ -303,7 +322,7 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
       if (p === ADMIN_PASSWORD) {
         isAdmin = true;
         document.getElementById('adminPassInput').value = '';
-        btnReset.style.display = 'inline-block';
+        btnReset.style.display = 'block';
         alert('Админ-режим включён!');
       } else { alert('Неверный пароль!'); }
     } else {
