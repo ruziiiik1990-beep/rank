@@ -25,31 +25,31 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
 
 .rating-table {
   width: 100%; border-collapse: collapse;
-  background: rgba(100,181,246,0.15);
+  background: transparent !important;
   border-radius: 8px; overflow: hidden;
 }
 
 .rating-table th {
-  padding: 12px 14px; border-bottom: 1px solid rgba(100,181,246,0.3);
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,167,38,0.2);
   text-align: left; vertical-align: middle;
   font-weight: 700; color: #ffa726;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
+  background: transparent !important;
 }
 
 .rating-table td {
-  padding: 12px 14px; border-bottom: 1px solid rgba(100,181,246,0.2);
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,167,38,0.1);
   text-align: left; vertical-align: middle;
+  background: transparent !important;
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-/* Только цвет цифр, фон обычный */
 .rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; color: #ffffff; }
 .rank-cell.first { color: #FFD700; font-size: 18px; }
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
 .rank-cell.third { color: #CD7F32; font-size: 16px; }
 
-/* Только цвет ников, фон обычный */
 .name-cell { font-weight: 600; font-size: 15px; color: #ffa726; }
 .name-cell.first { color: #FFD700; font-weight: 800; }
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
