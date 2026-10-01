@@ -6,7 +6,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', sans-serif; }
+body { margin: 0; padding: 0; background: #c4c4c4; font-family: 'Inter', sans-serif; }
 
 .rating-container {
   max-width: 600px;
@@ -30,7 +30,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-align: center;
 }
 
-/* Обёртка для центрирования таблицы */
 .rating-table-wrapper {
   display: flex;
   justify-content: center;
@@ -197,7 +196,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
 <div class="rating-container">
   <div class="rating-title">Турнирная таблица</div>
 
-  <!-- Обёртка: центрирует таблицу -->
   <div class="rating-table-wrapper">
     <table class="rating-table">
       <thead>
@@ -241,7 +239,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   firebase.initializeApp(firebaseConfig);
   var db = firebase.database();
 
-  var ADMIN_PASSWORD = '12$sacreD';
+  var ADMIN_PASSWORD = '12\$sacreD';
   var isAdmin = false;
   var LOGO_URL = 'https://4ak4ak.moy.su/logo1.jpg';
 
