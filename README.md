@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -30,10 +31,16 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-align: center;
 }
 
+.rating-table-wrapper {
+  overflow-x: auto;
+}
+
 .rating-table {
   width: 100%;
   border-collapse: collapse;
   color: #fff;
+  margin: 0 auto; /* центрирует таблицу внутри обёртки */
+  display: block;
 }
 
 .rating-table th,
@@ -42,7 +49,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left;
   vertical-align: middle;
-  /* Тот же цвет, что и у контейнера */
   background: rgba(10,42,107,0.3);
 }
 
@@ -52,7 +58,6 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.5px;
-  background: rgba(10,42,107,0.3);
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
@@ -188,20 +193,22 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
 
 <div class="rating-container">
   <div class="rating-title">Турнирная таблица</div>
-  <table class="rating-table">
-    <thead>
-      <tr>
-        <th class="pos-cell">#</th>
-        <th>Игрок</th>
-        <th class="champ-cell">Чемпион</th>
-        <th class="finalist-cell">Финалист</th>
-        <th class="points-cell">Чак-чак</th>
-      </tr>
-    </thead>
-    <tbody id="ratingBody">
-      <tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>
-    </tbody>
-  </table>
+  <div class="rating-table-wrapper">
+    <table class="rating-table">
+      <thead>
+        <tr>
+          <th class="pos-cell">#</th>
+          <th>Игрок</th>
+          <th class="champ-cell">Чемпион</th>
+          <th class="finalist-cell">Финалист</th>
+          <th class="points-cell">Чак-чак</th>
+        </tr>
+      </thead>
+      <tbody id="ratingBody">
+        <tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>
+      </tbody>
+    </table>
+  </div>
   <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
 
   <div class="admin-section">
