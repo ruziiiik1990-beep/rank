@@ -10,96 +10,178 @@
 body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
 
 .rating-container {
-  width: 100%; margin: 0; padding: 24px;
+  width: 100%;
+  margin: 0;
+  padding: 24px;
   background: rgba(5,20,55,0.5);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: none; border-radius: 0; box-shadow: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .rating-title {
-  text-align: center; color: #ffa726;
-  font-size: 22px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 1px; margin-bottom: 20px;
+  text-align: center;
+  color: #ffa726;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
 .rating-table {
-  width: 100%; border-collapse: collapse;
-  background: rgba(5,20,55,0.5) !important;
-  border-radius: 0; overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+  /* Фон только у ячеек — чтобы он шёл ровно по краям таблицы */
+  background: transparent !important;
+  border-radius: 0;
+  overflow: hidden;
 }
 
 .rating-table th {
-  padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.15);
-  text-align: left; vertical-align: middle;
-  font-weight: 700; color: #ffffff;
-  text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  vertical-align: middle;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
   background: rgba(5,20,55,0.5) !important;
 }
 
 .rating-table td {
-  padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
-  text-align: left; vertical-align: middle;
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  vertical-align: middle;
   color: #ffffff;
   background: rgba(5,20,55,0.5) !important;
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-.rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; }
+/* Колонка места — по центру */
+.rank-cell {
+  width: 40px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+}
 .rank-cell.first { color: #FFD700; font-size: 18px; }
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
 .rank-cell.third { color: #CD7F32; font-size: 16px; }
 
-.name-cell { font-weight: 600; font-size: 15px; color: #ffffff; }
+/* Имя игрока — слева (как ты просил: только игроки не по центру) */
+.name-cell {
+  font-weight: 600;
+  font-size: 15px;
+  color: #ffffff;
+  text-align: left;
+}
 .name-cell.first { color: #FFD700; font-weight: 800; }
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-/* Колонки чемпион / финалист */
-.champ-cell { width: 90px; text-align: center; font-weight: 700; font-size: 15px; }
+/* Чемпион, Финалист, Чак-чак — по центру */
+.champ-cell,
+.finalist-cell,
+.points-cell {
+  text-align: center;
+}
+
+.champ-cell {
+  width: 90px;
+  font-weight: 700;
+  font-size: 15px;
+}
 .champ-cell.first { color: #FFD700; }
 .champ-cell.second { color: #C0C0C0; }
 .champ-cell.third { color: #CD7F32; }
 
-.finalist-cell { width: 90px; text-align: center; font-weight: 700; font-size: 15px; }
+.finalist-cell {
+  width: 90px;
+  font-weight: 700;
+  font-size: 15px;
+}
 .finalist-cell.first { color: #FFD700; }
 .finalist-cell.second { color: #C0C0C0; }
 .finalist-cell.third { color: #CD7F32; }
 
-.points-cell { width: 100px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
+.points-cell {
+  width: 100px;
+  font-weight: 700;
+  color: #ffb74d;
+  font-size: 18px;
+}
 .points-cell.zero { color: rgba(255,167,38,0.5); font-size: 14px; }
 
-.points-logo { width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-left: 6px; }
+.points-logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-left: 6px;
+}
 
 .rating-empty, .rating-loading {
-  text-align: center; color: rgba(255,255,255,0.6);
-  font-size: 14px; padding: 32px; font-style: italic;
+  text-align: center;
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  padding: 32px;
+  font-style: italic;
 }
 .rating-note {
-  text-align: center; color: rgba(255,255,255,0.7);
-  font-size: 12px; margin-top: 16px;
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  margin-top: 16px;
 }
 
-.admin-section { margin-top: 24px; text-align: center; }
+.admin-section {
+  margin-top: 24px;
+  text-align: center;
+}
 .admin-section input {
-  padding: 10px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;
-  background: rgba(0,0,0,0.4); color: #fff; font-size: 14px; width: 180px;
-  font-family: 'Inter', sans-serif; margin-right: 8px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  font-size: 14px;
+  width: 180px;
+  font-family: 'Inter', sans-serif;
+  margin-right: 8px;
 }
 .admin-section input::placeholder { color: rgba(255,255,255,0.4); }
 .btn-admin {
-  padding: 10px 20px; font-size: 14px; font-weight: 700;
-  color: #fff; background: linear-gradient(135deg, #e65100, #f57c00);
-  border: none; border-radius: 8px; cursor: pointer;
-  font-family: 'Inter', sans-serif; transition: transform 0.2s, box-shadow 0.2s; margin: 4px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #e65100, #f57c00);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 4px;
 }
 .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(230,81,0,0.4); }
 .btn-reset {
-  padding: 10px 20px; font-size: 14px; font-weight: 700;
-  color: #fff; background: linear-gradient(135deg, #c0392b, #e74c3c);
-  border: none; border-radius: 8px; cursor: pointer;
-  font-family: 'Inter', sans-serif; transition: transform 0.2s, box-shadow 0.2s;
-  display: none; margin: 4px auto;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: none;
+  margin: 4px auto;
 }
 .btn-reset:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(192,57,43,0.4); }
 </style>
@@ -167,7 +249,6 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
     var winners = finalResult.winners || [];
     var runnersUp = finalResult.runnersUp || [];
 
-    // Считаем чемпионства, финалы и очки
     var stats = {};
     winners.forEach(function(nick) {
       if (!nick) return;
@@ -186,7 +267,6 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
       return { nick: nick, champ: stats[nick].champ, finalist: stats[nick].finalist, points: stats[nick].points };
     });
 
-    // Сортировка: сначала по очкам, при равных — по чемпионствам, потом по финалам
     arr.sort(function(a, b) {
       if (b.points !== a.points) return b.points - a.points;
       if (b.champ !== a.champ) return b.champ - a.champ;
