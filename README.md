@@ -23,10 +23,10 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   letter-spacing: 1px; margin-bottom: 20px;
 }
 
-/* Голубая заливка всей таблицы */
+/* Вся таблица — в том же цвете, что и контейнер */
 .rating-table {
   width: 100%; border-collapse: collapse;
-  background: rgba(100,181,246,0.25);
+  background: rgba(10,42,107,0.3) !important;
   border-radius: 8px; overflow: hidden;
 }
 
@@ -35,31 +35,32 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   text-align: left; vertical-align: middle;
   font-weight: 700; color: #ffffff;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
-  background: rgba(100,181,246,0.4);
+  /* Тот же цвет фона, без отдельной заливки */
+  background: rgba(10,42,107,0.3) !important;
 }
 
 .rating-table td {
   padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left; vertical-align: middle;
   color: #ffffff;
-  background: rgba(100,181,246,0.25);
+  background: rgba(10,42,107,0.3) !important;
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-/* Цифры мест — цветные поверх голубой заливки */
+/* Цифры мест — цветные, чтобы выделялись на общем фоне */
 .rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; }
 .rank-cell.first { color: #FFD700; font-size: 18px; }
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
 .rank-cell.third { color: #CD7F32; font-size: 16px; }
 
-/* Ники — тоже с учётом мест */
+/* Ники — тоже цветные для топ‑3 */
 .name-cell { font-weight: 600; font-size: 15px; color: #ffffff; }
 .name-cell.first { color: #FFD700; font-weight: 800; }
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-/* Очки — оранжево-золотые */
+/* Очки — оранжево‑золотые */
 .points-cell { width: 120px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
 .points-cell.zero { color: rgba(255,167,38,0.5); font-size: 14px; }
 
