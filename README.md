@@ -11,10 +11,11 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
 
 .rating-container {
   max-width: 600px; margin: 0 auto; padding: 24px;
-  background: rgba(10,42,107,0.3);
+  /* Чуть темнее и плотнее, чем раньше */
+  background: rgba(5,20,55,0.5);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(74,158,255,0.35);
-  border-radius: 14px; box-shadow: 0 4px 20px rgba(10,42,107,0.3);
+  border: 1px solid rgba(74,158,255,0.4);
+  border-radius: 14px; box-shadow: 0 4px 20px rgba(5,20,55,0.4);
 }
 
 .rating-title {
@@ -23,10 +24,10 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   letter-spacing: 1px; margin-bottom: 20px;
 }
 
-/* Вся таблица — в том же цвете, что и контейнер */
+/* Таблица — в том же тёмно‑сине‑голубом, но плотнее */
 .rating-table {
   width: 100%; border-collapse: collapse;
-  background: rgba(10,42,107,0.3) !important;
+  background: rgba(5,20,55,0.5) !important;
   border-radius: 8px; overflow: hidden;
 }
 
@@ -35,20 +36,19 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   text-align: left; vertical-align: middle;
   font-weight: 700; color: #ffffff;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
-  /* Тот же цвет фона, без отдельной заливки */
-  background: rgba(10,42,107,0.3) !important;
+  background: rgba(5,20,55,0.5) !important;
 }
 
 .rating-table td {
   padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left; vertical-align: middle;
   color: #ffffff;
-  background: rgba(10,42,107,0.3) !important;
+  background: rgba(5,20,55,0.5) !important;
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-/* Цифры мест — цветные, чтобы выделялись на общем фоне */
+/* Цифры мест — цветные, чтобы выделялись на тёмном фоне */
 .rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; }
 .rank-cell.first { color: #FFD700; font-size: 18px; }
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
