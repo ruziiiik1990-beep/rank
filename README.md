@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -9,16 +10,11 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
 
-/* Контейнер на всю ширину, не центрирован */
 .rating-container {
-  width: 100%;
-  margin: 0;
-  padding: 24px;
+  width: 100%; margin: 0; padding: 24px;
   background: rgba(5,20,55,0.5);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
+  border: none; border-radius: 0; box-shadow: none;
 }
 
 .rating-title {
@@ -27,7 +23,6 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   letter-spacing: 1px; margin-bottom: 20px;
 }
 
-/* Таблица — на всю ширину */
 .rating-table {
   width: 100%; border-collapse: collapse;
   background: rgba(5,20,55,0.5) !important;
@@ -35,7 +30,7 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 }
 
 .rating-table th {
-  padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.15);
   text-align: left; vertical-align: middle;
   font-weight: 700; color: #ffffff;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
@@ -43,7 +38,7 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 }
 
 .rating-table td {
-  padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left; vertical-align: middle;
   color: #ffffff;
   background: rgba(5,20,55,0.5) !important;
@@ -61,7 +56,18 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-.points-cell { width: 120px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
+/* Колонки чемпион / финалист */
+.champ-cell { width: 90px; text-align: center; font-weight: 700; font-size: 15px; }
+.champ-cell.first { color: #FFD700; }
+.champ-cell.second { color: #C0C0C0; }
+.champ-cell.third { color: #CD7F32; }
+
+.finalist-cell { width: 90px; text-align: center; font-weight: 700; font-size: 15px; }
+.finalist-cell.first { color: #FFD700; }
+.finalist-cell.second { color: #C0C0C0; }
+.finalist-cell.third { color: #CD7F32; }
+
+.points-cell { width: 100px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
 .points-cell.zero { color: rgba(255,167,38,0.5); font-size: 14px; }
 
 .points-logo { width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-left: 6px; }
@@ -108,11 +114,13 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
       <tr>
         <th class="rank-cell">#</th>
         <th>Игрок</th>
+        <th class="champ-cell">Чемпион</th>
+        <th class="finalist-cell">Финалист</th>
         <th class="points-cell">Чак-чак</th>
       </tr>
     </thead>
     <tbody id="ratingBody">
-      <tr><td colspan="3" class="rating-loading">Загрузка...</td></tr>
+      <tr><td colspan="5" class="rating-loading">Загрузка...</td></tr>
     </tbody>
   </table>
   <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
@@ -154,30 +162,57 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   function renderRating(finalResult) {
     var body = document.getElementById('ratingBody');
     if (!finalResult || (!finalResult.winners && !finalResult.runnersUp)) {
-      body.innerHTML = '<tr><td colspan="3" class="rating-empty">Итоги появятся после финала</td></tr>';
+      body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
       return;
     }
     var winners = finalResult.winners || [];
     var runnersUp = finalResult.runnersUp || [];
-    var scores = {};
-    winners.forEach(function(nick) { if (nick) scores[nick] = (scores[nick]||0) + 2; });
-    runnersUp.forEach(function(nick) { if (nick) scores[nick] = (scores[nick]||0) + 1; });
-    var arr = Object.keys(scores).map(function(nick) {
-      return { nick: nick, points: scores[nick] };
-    }).sort(function(a, b) { return b.points - a.points; });
+
+    // Считаем чемпионства, финалы и очки
+    var stats = {};
+    winners.forEach(function(nick) {
+      if (!nick) return;
+      if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
+      stats[nick].champ++;
+      stats[nick].points += 2;
+    });
+    runnersUp.forEach(function(nick) {
+      if (!nick) return;
+      if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
+      stats[nick].finalist++;
+      stats[nick].points += 1;
+    });
+
+    var arr = Object.keys(stats).map(function(nick) {
+      return { nick: nick, champ: stats[nick].champ, finalist: stats[nick].finalist, points: stats[nick].points };
+    });
+
+    // Сортировка: сначала по очкам, при равных — по чемпионствам, потом по финалам
+    arr.sort(function(a, b) {
+      if (b.points !== a.points) return b.points - a.points;
+      if (b.champ !== a.champ) return b.champ - a.champ;
+      return b.finalist - a.finalist;
+    });
+
     var html = '';
     arr.forEach(function(row, i) {
       var pos = i + 1;
       var rankClass = '';
       var nameClass = '';
-      if (pos === 1) { rankClass = ' first'; nameClass = ' first'; }
-      else if (pos === 2) { rankClass = ' second'; nameClass = ' second'; }
-      else if (pos === 3) { rankClass = ' third'; nameClass = ' third'; }
+      var champClass = '';
+      var finalistClass = '';
+      if (pos === 1) { rankClass = nameClass = champClass = finalistClass = ' first'; }
+      else if (pos === 2) { rankClass = nameClass = champClass = finalistClass = ' second'; }
+      else if (pos === 3) { rankClass = nameClass = champClass = finalistClass = ' third'; }
+
       var pointsClass = row.points > 0 ? '' : ' zero';
       var logoHtml = row.points > 0 ? ' <img src="' + LOGO_URL + '" class="points-logo" alt="">' : '';
+
       html += '<tr>'
         + '<td class="rank-cell' + rankClass + '">' + pos + '</td>'
         + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</td>'
+        + '<td class="champ-cell' + champClass + '">' + row.champ + '</td>'
+        + '<td class="finalist-cell' + finalistClass + '">' + row.finalist + '</td>'
         + '<td class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</td>'
         + '</tr>';
     });
