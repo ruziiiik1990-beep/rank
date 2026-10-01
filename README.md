@@ -30,17 +30,17 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-align: center;
 }
 
-/* Обёртка, чтобы центрировать таблицу по горизонтали */
+/* Обёртка для центрирования таблицы */
 .rating-table-wrapper {
   display: flex;
   justify-content: center;
-  overflow-x: auto; /* прокрутка на мобильных, если не влезает */
+  overflow-x: auto;
   margin: 0 auto;
 }
 
 .rating-table {
   width: 100%;
-  min-width: 520px; /* чтобы таблица не сжималась слишком сильно */
+  min-width: 520px;
   border-collapse: collapse;
   color: #fff;
 }
@@ -51,7 +51,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left;
   vertical-align: middle;
-  background: rgba(10,42,107,0.3); /* тот же цвет, что и у контейнера */
+  background: rgba(10,42,107,0.3);
 }
 
 .rating-table th {
@@ -197,7 +197,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
 <div class="rating-container">
   <div class="rating-title">Турнирная таблица</div>
 
-  <!-- Обёртка для центрирования таблицы -->
+  <!-- Обёртка: центрирует таблицу -->
   <div class="rating-table-wrapper">
     <table class="rating-table">
       <thead>
