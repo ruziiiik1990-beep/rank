@@ -23,68 +23,77 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   letter-spacing: 1px; margin-bottom: 20px;
 }
 
+/* Голубая заливка всей таблицы */
 .rating-table {
   width: 100%; border-collapse: collapse;
-  background: transparent !important;
+  background: rgba(100,181,246,0.25);
   border-radius: 8px; overflow: hidden;
 }
 
 .rating-table th {
-  padding: 12px 14px; border-bottom: 1px solid rgba(255,167,38,0.2);
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.15);
   text-align: left; vertical-align: middle;
-  font-weight: 700; color: #ffa726;
+  font-weight: 700; color: #ffffff;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
-  background: transparent !important;
+  background: rgba(100,181,246,0.4);
 }
 
 .rating-table td {
-  padding: 12px 14px; border-bottom: 1px solid rgba(255,167,38,0.1);
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left; vertical-align: middle;
-  background: transparent !important;
+  color: #ffffff;
+  background: rgba(100,181,246,0.25);
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-.rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; color: #ffffff; }
+/* Цифры мест — цветные поверх голубой заливки */
+.rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; }
 .rank-cell.first { color: #FFD700; font-size: 18px; }
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
 .rank-cell.third { color: #CD7F32; font-size: 16px; }
 
-.name-cell { font-weight: 600; font-size: 15px; color: #ffa726; }
+/* Ники — тоже с учётом мест */
+.name-cell { font-weight: 600; font-size: 15px; color: #ffffff; }
 .name-cell.first { color: #FFD700; font-weight: 800; }
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
+/* Очки — оранжево-золотые */
 .points-cell { width: 120px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
-.points-cell.zero { color: rgba(255,167,38,0.3); font-size: 14px; }
+.points-cell.zero { color: rgba(255,167,38,0.5); font-size: 14px; }
 
 .points-logo { width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-left: 6px; }
 
-.rating-empty { text-align: center; color: #ffa726; font-size: 14px; padding: 32px; font-style: italic; opacity: 0.6; }
-.rating-loading { text-align: center; color: #ffa726; font-size: 14px; padding: 32px; opacity: 0.6; }
-.rating-note { text-align: center; color: #ffa726; font-size: 12px; margin-top: 16px; opacity: 0.7; }
+.rating-empty, .rating-loading {
+  text-align: center; color: rgba(255,255,255,0.6);
+  font-size: 14px; padding: 32px; font-style: italic;
+}
+.rating-note {
+  text-align: center; color: rgba(255,255,255,0.7);
+  font-size: 12px; margin-top: 16px;
+}
 
 .admin-section { margin-top: 24px; text-align: center; }
 .admin-section input {
-  padding: 10px 14px; border: 1px solid rgba(255,167,38,0.3); border-radius: 8px;
-  background: rgba(0,0,0,0.4); color: #ffa726; font-size: 14px; width: 180px;
+  padding: 10px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;
+  background: rgba(0,0,0,0.4); color: #fff; font-size: 14px; width: 180px;
   font-family: 'Inter', sans-serif; margin-right: 8px;
 }
-.admin-section input::placeholder { color: rgba(255,167,38,0.4); }
+.admin-section input::placeholder { color: rgba(255,255,255,0.4); }
 .btn-admin {
   padding: 10px 20px; font-size: 14px; font-weight: 700;
   color: #fff; background: linear-gradient(135deg, #e65100, #f57c00);
-  border: 2px solid rgba(255,167,38,0.3); border-radius: 8px;
-  cursor: pointer; font-family: 'Inter', sans-serif;
-  transition: transform 0.2s, box-shadow 0.2s; margin: 4px;
+  border: none; border-radius: 8px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: transform 0.2s, box-shadow 0.2s; margin: 4px;
 }
 .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(230,81,0,0.4); }
 .btn-reset {
   padding: 10px 20px; font-size: 14px; font-weight: 700;
   color: #fff; background: linear-gradient(135deg, #c0392b, #e74c3c);
-  border: 2px solid rgba(255,167,38,0.3); border-radius: 8px;
-  cursor: pointer; font-family: 'Inter', sans-serif;
-  transition: transform 0.2s, box-shadow 0.2s; display: none; margin: 4px auto;
+  border: none; border-radius: 8px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: transform 0.2s, box-shadow 0.2s;
+  display: none; margin: 4px auto;
 }
 .btn-reset:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(192,57,43,0.4); }
 </style>
@@ -98,20 +107,20 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
       <tr>
         <th class="rank-cell">#</th>
         <th>Игрок</th>
-        <th class="points-cell">Чак-чак</th>
+        <th class="points-cell">Чак‑чак</th>
       </tr>
     </thead>
     <tbody id="ratingBody">
       <tr><td colspan="3" class="rating-loading">Загрузка...</td></tr>
     </tbody>
   </table>
-  <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
+  <div class="rating-note">Победитель финала: +2 чак‑чака · Финалист: +1 чак‑чак</div>
 
   <div class="admin-section">
-    <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
+    <input type="password" id="adminPassInput" placeholder="Админ‑пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
     <button class="btn-admin" onclick="toggleAdmin()">Войти</button>
     <br>
-    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
+    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак‑чаки</button>
   </div>
 </div>
 
