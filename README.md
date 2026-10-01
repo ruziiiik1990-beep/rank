@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -17,60 +17,64 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   border-radius: 14px; box-shadow: 0 4px 20px rgba(10,42,107,0.3);
 }
 .rating-title {
-  text-align: center; color: #4a9eff;
+  text-align: center; color: #ffa726;
   font-size: 22px; font-weight: 700; text-transform: uppercase;
   letter-spacing: 1px; margin-bottom: 20px;
 }
 
 .rating-table {
-  width: 100%; border-collapse: collapse; color: #fff;
-  background: rgba(0,0,0,0.35); border-radius: 8px; overflow: hidden;
+  width: 100%; border-collapse: collapse;
+  background: transparent; border-radius: 8px; overflow: hidden;
 }
 .rating-table th, .rating-table td {
   padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.08);
   text-align: left; vertical-align: middle;
 }
 .rating-table th {
-  font-weight: 700; color: rgba(255,255,255,0.9);
+  font-weight: 700; color: #ffa726;
   text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;
-  background: rgba(74,158,255,0.15);
+  background: transparent;
 }
 .rating-table tr:last-child td { border-bottom: none; }
-.rating-table tr:hover { background: rgba(255,255,255,0.05); }
 
-.rank-cell { width: 40px; text-align: center; font-weight: 700; color: rgba(255,255,255,0.5); }
+.rank-cell { width: 40px; text-align: center; font-weight: 700; color: #ffa726; }
 .rank-cell.first { color: #ffd700; font-size: 18px; }
-.rank-cell.second { color: #c0c0c0; font-size: 16px; }
-.rank-cell.third { color: #cd7f32; font-size: 16px; }
+.rank-cell.second { color: #ffc107; font-size: 16px; }
+.rank-cell.third { color: #ff9800; font-size: 16px; }
 
-.name-cell { font-weight: 600; font-size: 15px; }
+.name-cell { font-weight: 600; font-size: 15px; color: #ffa726; }
 
-.points-cell { width: 80px; text-align: right; font-weight: 700; color: #ffd700; font-size: 18px; }
-.points-cell.zero { color: rgba(255,255,255,0.2); font-size: 14px; }
+.points-cell { width: 120px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
+.points-cell.zero { color: rgba(255,167,38,0.3); font-size: 14px; }
 
-.rating-empty { text-align: center; color: rgba(255,255,255,0.4); font-size: 14px; padding: 32px; font-style: italic; }
-.rating-loading { text-align: center; color: rgba(255,255,255,0.4); font-size: 14px; padding: 32px; }
-.rating-note { text-align: center; color: rgba(255,255,255,0.35); font-size: 12px; margin-top: 16px; }
+.points-logo {
+  width: 20px; height: 20px; border-radius: 50%;
+  vertical-align: middle; margin-left: 6px;
+}
+
+.rating-empty { text-align: center; color: #ffa726; font-size: 14px; padding: 32px; font-style: italic; opacity: 0.6; }
+.rating-loading { text-align: center; color: #ffa726; font-size: 14px; padding: 32px; opacity: 0.6; }
+.rating-note { text-align: center; color: #ffa726; font-size: 12px; margin-top: 16px; opacity: 0.7; }
 
 .admin-section { margin-top: 24px; text-align: center; }
 .admin-section input {
-  padding: 10px 14px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
-  background: rgba(0,0,0,0.4); color: #fff; font-size: 14px; width: 180px;
+  padding: 10px 14px; border: 1px solid rgba(255,167,38,0.3); border-radius: 8px;
+  background: rgba(0,0,0,0.4); color: #ffa726; font-size: 14px; width: 180px;
   font-family: 'Inter', sans-serif; margin-right: 8px;
 }
-.admin-section input::placeholder { color: rgba(255,255,255,0.4); }
+.admin-section input::placeholder { color: rgba(255,167,38,0.4); }
 .btn-admin {
   padding: 10px 20px; font-size: 14px; font-weight: 700;
-  color: #fff; background: linear-gradient(135deg, #0a2a6b, #1a4a8b);
-  border: 2px solid rgba(255,255,255,0.2); border-radius: 8px;
+  color: #fff; background: linear-gradient(135deg, #e65100, #f57c00);
+  border: 2px solid rgba(255,167,38,0.3); border-radius: 8px;
   cursor: pointer; font-family: 'Inter', sans-serif;
   transition: transform 0.2s, box-shadow 0.2s; margin: 4px;
 }
-.btn-admin:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(10,42,107,0.4); }
+.btn-admin:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(230,81,0,0.4); }
 .btn-reset {
   padding: 10px 20px; font-size: 14px; font-weight: 700;
   color: #fff; background: linear-gradient(135deg, #c0392b, #e74c3c);
-  border: 2px solid rgba(255,255,255,0.2); border-radius: 8px;
+  border: 2px solid rgba(255,167,38,0.3); border-radius: 8px;
   cursor: pointer; font-family: 'Inter', sans-serif;
   transition: transform 0.2s, box-shadow 0.2s; display: none; margin: 4px auto;
 }
@@ -86,20 +90,20 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
       <tr>
         <th class="rank-cell">#</th>
         <th>Игрок</th>
-        <th class="points-cell">Очки</th>
+        <th class="points-cell">Чак-чак</th>
       </tr>
     </thead>
     <tbody id="ratingBody">
       <tr><td colspan="3" class="rating-loading">Загрузка...</td></tr>
     </tbody>
   </table>
-  <div class="rating-note">Победитель финала: +2 очка &middot; Финалист: +1 очко</div>
+  <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
 
   <div class="admin-section">
     <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
     <button class="btn-admin" onclick="toggleAdmin()">Войти</button>
     <br>
-    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить очки</button>
+    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
   </div>
 </div>
 
@@ -122,6 +126,7 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
 
   var ADMIN_PASSWORD = '12$sacreD';
   var isAdmin = false;
+  var LOGO_URL = 'https://4ak4ak.moy.su/logo1.jpg';
 
   function escapeHtml(t) {
     if (!t) return '';
@@ -149,7 +154,8 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
       else if (pos === 2) rankClass = ' second';
       else if (pos === 3) rankClass = ' third';
       var pointsClass = row.points > 0 ? '' : ' zero';
-      html += '<tr><td class="rank-cell'+rankClass+'">'+pos+'</td><td class="name-cell">'+escapeHtml(row.nick)+'</td><td class="points-cell'+pointsClass+'">'+row.points+'</td></tr>';
+      var logoHtml = row.points > 0 ? ' <img src="' + LOGO_URL + '" class="points-logo" alt="">' : '';
+      html += '<tr><td class="rank-cell'+rankClass+'">'+pos+'</td><td class="name-cell">'+escapeHtml(row.nick)+'</td><td class="points-cell'+pointsClass+'">'+row.points+logoHtml+'</td></tr>';
     });
     body.innerHTML = html;
   }
@@ -173,10 +179,10 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
 
   window.resetRating = function() {
     if (!isAdmin) return;
-    if (!confirm('Сбросить очки турнира? Результат финала будет удалён.')) return;
+    if (!confirm('Сбросить чак-чаки? Результат финала будет удалён.')) return;
     db.ref('playoff/finalResult').remove().then(function() {
       renderRating(null);
-      alert('Очки сброшены!');
+      alert('Чак-чаки сброшены!');
     });
   };
 
