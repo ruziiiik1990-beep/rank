@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -30,16 +31,19 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-align: center;
 }
 
+/* Обёртка, чтобы центрировать таблицу по горизонтали */
 .rating-table-wrapper {
-  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto; /* прокрутка на мобильных, если не влезает */
+  margin: 0 auto;
 }
 
 .rating-table {
   width: 100%;
+  min-width: 520px; /* чтобы таблица не сжималась слишком сильно */
   border-collapse: collapse;
   color: #fff;
-  margin: 0 auto; /* центрирует таблицу внутри обёртки */
-  display: block;
 }
 
 .rating-table th,
@@ -48,7 +52,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left;
   vertical-align: middle;
-  background: rgba(10,42,107,0.3);
+  background: rgba(10,42,107,0.3); /* тот же цвет, что и у контейнера */
 }
 
 .rating-table th {
@@ -57,6 +61,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.5px;
+  background: rgba(10,42,107,0.3);
 }
 
 .rating-table tr:last-child td { border-bottom: none; }
@@ -192,6 +197,8 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
 
 <div class="rating-container">
   <div class="rating-title">Турнирная таблица</div>
+
+  <!-- Обёртка для центрирования таблицы -->
   <div class="rating-table-wrapper">
     <table class="rating-table">
       <thead>
@@ -208,6 +215,7 @@ body { margin: 0; padding: 0; background: transparent; font-family: 'Inter', san
       </tbody>
     </table>
   </div>
+
   <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
 
   <div class="admin-section">
