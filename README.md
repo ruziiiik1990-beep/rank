@@ -9,9 +9,15 @@
 body { margin: 0; padding: 0; background: #c4c4c4; font-family: 'Inter', sans-serif; }
 
 .rating-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width 600px;
+  margin 32px auto;
+  padding 20px;
+  background rgba(10,42,107,0.3);
+  backdrop-filter blur(8px);
+  -webkit-backdrop-filter blur(8px);
+  border 1px solid rgba(74,158,255,0.35);
+  border-radius 14px;
+  box-shadow 0 4px 20px rgba(10,42,107,0.3);
 }
 
 .rating-title {
@@ -25,12 +31,11 @@ body { margin: 0; padding: 0; background: #c4c4c4; font-family: 'Inter', sans-se
 }
 
 .rating-table-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
+  display flex;
+  justify-content center;
+  overflow-x auto;
+  margin 0 auto;
 }
-
 .rating-table {
   width: 100%;
   min-width: 520px;
