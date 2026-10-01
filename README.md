@@ -7,15 +7,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: transparent; font-family: 'Inter', sans-serif; }
+body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
 
+/* Контейнер на всю ширину, не центрирован */
 .rating-container {
-  max-width: 600px; margin: 0 auto; padding: 24px;
-  /* Чуть темнее и плотнее, чем раньше */
+  width: 100%;
+  margin: 0;
+  padding: 24px;
   background: rgba(5,20,55,0.5);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(74,158,255,0.4);
-  border-radius: 14px; box-shadow: 0 4px 20px rgba(5,20,55,0.4);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .rating-title {
@@ -24,11 +27,11 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
   letter-spacing: 1px; margin-bottom: 20px;
 }
 
-/* Таблица — в том же тёмно‑сине‑голубом, но плотнее */
+/* Таблица — на всю ширину */
 .rating-table {
   width: 100%; border-collapse: collapse;
   background: rgba(5,20,55,0.5) !important;
-  border-radius: 8px; overflow: hidden;
+  border-radius: 0; overflow: hidden;
 }
 
 .rating-table th {
@@ -48,19 +51,16 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-/* Цифры мест — цветные, чтобы выделялись на тёмном фоне */
 .rank-cell { width: 40px; text-align: center; font-weight: 800; font-size: 16px; }
 .rank-cell.first { color: #FFD700; font-size: 18px; }
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
 .rank-cell.third { color: #CD7F32; font-size: 16px; }
 
-/* Ники — тоже цветные для топ‑3 */
 .name-cell { font-weight: 600; font-size: 15px; color: #ffffff; }
 .name-cell.first { color: #FFD700; font-weight: 800; }
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-/* Очки — оранжево‑золотые */
 .points-cell { width: 120px; text-align: right; font-weight: 700; color: #ffb74d; font-size: 18px; }
 .points-cell.zero { color: rgba(255,167,38,0.5); font-size: 14px; }
 
@@ -108,20 +108,20 @@ body { background: transparent; font-family: 'Inter', sans-serif; }
       <tr>
         <th class="rank-cell">#</th>
         <th>Игрок</th>
-        <th class="points-cell">Чак‑чак</th>
+        <th class="points-cell">Чак-чак</th>
       </tr>
     </thead>
     <tbody id="ratingBody">
       <tr><td colspan="3" class="rating-loading">Загрузка...</td></tr>
     </tbody>
   </table>
-  <div class="rating-note">Победитель финала: +2 чак‑чака · Финалист: +1 чак‑чак</div>
+  <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
 
   <div class="admin-section">
-    <input type="password" id="adminPassInput" placeholder="Админ‑пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
+    <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
     <button class="btn-admin" onclick="toggleAdmin()">Войти</button>
     <br>
-    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак‑чаки</button>
+    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
   </div>
 </div>
 
