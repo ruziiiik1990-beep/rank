@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -12,10 +13,9 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 .rating-container {
   width: 100%;
   margin: 0;
-  padding: 24px;
-  background: rgba(5,20,55,0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* Минимальный отступ — только чтобы текст не прилипал к краю */
+  padding: 8px;
+  background: transparent;
   border: none;
   border-radius: 0;
   box-shadow: none;
@@ -28,13 +28,13 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  padding: 0 8px;
 }
 
 .rating-table {
   width: 100%;
   border-collapse: collapse;
-  /* Фон только у ячеек — чтобы он шёл ровно по краям таблицы */
   background: transparent !important;
   border-radius: 0;
   overflow: hidden;
@@ -62,7 +62,6 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 
 .rating-table tr:last-child td { border-bottom: none; }
 
-/* Колонка места — по центру */
 .rank-cell {
   width: 40px;
   text-align: center;
@@ -73,7 +72,6 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 .rank-cell.second { color: #C0C0C0; font-size: 17px; }
 .rank-cell.third { color: #CD7F32; font-size: 16px; }
 
-/* Имя игрока — слева (как ты просил: только игроки не по центру) */
 .name-cell {
   font-weight: 600;
   font-size: 15px;
@@ -84,7 +82,6 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
 .name-cell.second { color: #C0C0C0; font-weight: 800; }
 .name-cell.third { color: #CD7F32; font-weight: 800; }
 
-/* Чемпион, Финалист, Чак-чак — по центру */
 .champ-cell,
 .finalist-cell,
 .points-cell {
@@ -136,11 +133,12 @@ body { background: transparent; font-family: 'Inter', sans-serif; margin: 0; pad
   text-align: center;
   color: rgba(255,255,255,0.7);
   font-size: 12px;
-  margin-top: 16px;
+  margin-top: 12px;
+  padding: 0 8px;
 }
 
 .admin-section {
-  margin-top: 24px;
+  margin-top: 16px;
   text-align: center;
 }
 .admin-section input {
