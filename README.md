@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -39,7 +38,6 @@
     .rating-table-wrapper {
       display: flex;
       justify-content: center;
-      overflow-x: auto;
       margin: 0 auto;
     }
 
@@ -341,26 +339,27 @@
             document.querySelector('.admin-section').style.display = 'none';
             btnReset.style.display = 'block';
           } else {
-            alert('Неверный пароль!');
+            alert('Неверный пароль');
           }
         } else {
           isAdmin = false;
-          document.querySelector('.admin-section').style.display = 'flex';
+          document.querySelector('.admin-section').style.display = '';
           btnReset.style.display = 'none';
         }
       };
 
       window.resetRating = function() {
-        if (!isAdmin) return;
-        if (!confirm('Сбросить чак-чаки? Результат финала будет удалён.')) return;
-        db.ref('playoff/finalResult').remove().then(function() {
+        if (!confirm('Сбросить все чак-чаки?')) return;
+        db.ref('finalResult').remove().then(function() {
           renderRating(null);
-          alert('Чак-чаки сброшены!');
+          alert('Чак-чаки сброшены');
+        }).catch(function(err) {
+          alert('Ошибка: ' + err.message);
         });
       };
 
-      db.ref('playoff/finalResult').on('value', function(snap) {
-        renderRating(snap.val());
+      db.ref('finalResult').on('value', function(snapshot) {
+        renderRating(snapshot.val());
       });
     })();
   </script>
