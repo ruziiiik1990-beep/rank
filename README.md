@@ -1,341 +1,220 @@
-html lang=ru
-head
-meta charset=UTF-8
-meta name=viewport content=width=device-width, initial-scale=1.0
-titleРейтинг турнираtitle
-style
-@import url('httpsfonts.googleapis.comcss2family=Interwght@400;500;600;700;800&display=swap');
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рейтинг турнира</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-body { margin 0; padding 0; background #c4c4c4; font-family 'Inter', sans-serif; }
+    body { margin: 0; padding: 20px; background: #0f111a; color: #fff; font-family: 'Inter', sans-serif; }
 
-.rating-container {
-  max-width 600px;
-  margin 32px auto;
-  padding 20px;
-  background rgba(10,42,107,0.3);
-  backdrop-filter blur(8px);
-  -webkit-backdrop-filter blur(8px);
-  border 1px solid rgba(74,158,255,0.35);
-  border-radius 14px;
-  box-shadow 0 4px 20px rgba(10,42,107,0.3);
-}
+    .rating-container {
+      max-width: 1000px; margin: 0 auto;
+      background: rgba(16,18,28,0.85);
+      border-radius: 14px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
 
-.rating-title {
-  color #4a9eff;
-  font-size 20px;
-  font-weight 700;
-  margin-bottom 16px;
-  text-transform uppercase;
-  letter-spacing 1px;
-  text-align center;
-}
+    .rating-title {
+      text-align: center; color: #ffd700;
+      font-size: 28px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 2px; margin-bottom: 24px;
+      text-shadow: 0 2px 10px rgba(255,215,0,0.5);
+    }
 
-.rating-table-wrapper {
-  display flex;
-  justify-content center;
-  overflow-x auto;
-  margin 0 auto;
-}
+    table.rating-table {
+      width: 100%; border-collapse: collapse;
+      color: #e0e0e0; font-size: 15px;
+    }
+    .rating-table th {
+      padding: 16px 12px; text-align: left; color: #aaa;
+      font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .rating-table td {
+      padding: 12px 12px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .rating-table tr:last-child td { border-bottom: none; }
+    .rating-table tr:hover { background: rgba(255,255,255,0.03); }
 
-.rating-table {
-  width 100%;
-  min-width 520px;
-  border-collapse collapse;
-  color #fff;
-}
+    .rank-cell { font-weight: 700; color: #ffd700; width: 50px; }
+    .team-name-cell { display: flex; align-items: center; gap: 10px; }
+    .team-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; color: #fff;
+    }
+    .west-team .team-avatar { background: linear-gradient(135deg, #4a90d9, #6fb3ff); }
+    .east-team .team-avatar { background: linear-gradient(135deg, #e07845, #ff8a65); }
 
-.rating-table th,
-.rating-table td {
-  padding 10px 14px;
-  border-bottom 1px solid rgba(255,255,255,0.1);
-  text-align left;
-  vertical-align middle;
-  background rgba(10,42,107,0.3);
-}
+    .stat-wins { color: #66bb6a; font-weight: 700; }
+    .stat-losses { color: #ff6b6b; font-weight: 700; }
+    .stat-maps { color: #aaa; }
 
-.rating-table th {
-  font-weight 700;
-  color rgba(255,255,255,0.9);
-  text-transform uppercase;
-  font-size 12px;
-  letter-spacing 0.5px;
-  background rgba(10,42,107,0.3);
-}
+    .admin-controls-rating {
+      margin-top: 20px; text-align: center;
+    }
+    .btn-admin {
+      padding: 10px 24px; border: none; border-radius: 8px;
+      background: linear-gradient(135deg, #0a2a6b, #1a4a8b);
+      color: #fff; font-weight: 600; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(10,42,107,0.4); }
 
-.rating-table trlast-child td { border-bottom none; }
+    @media (max-width: 768px) {
+      .rating-container { padding: 16px; }
+      .rating-table th, .rating-table td { padding: 8px 6px; font-size: 13px; }
+      .team-name-cell { flex-direction: column; align-items: flex-start; }
+      .team-avatar { margin-bottom: 4px; }
+    }
+  </style>
+</head>
+<body>
 
-.pos-cell {
-  width 40px;
-  text-align center;
-  font-weight 800;
-  font-size 16px;
-  color rgba(255,255,255,0.5);
-}
-.pos-cell.first { color #ffd700; font-size 18px; }
-.pos-cell.second { color #C0C0C0; font-size 17px; }
-.pos-cell.third { color #CD7F32; font-size 16px; }
+<div class="rating-container">
+  <h1 class="rating-title">Рейтинг турнира</h1>
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th class="rank-cell">#</th>
+        <th>Команда</th>
+        <th>Победы</th>
+        <th>Поражения</th>
+        <th>Карты</th>
+      </tr>
+    </thead>
+    <tbody id="ratingBody">
+      <!-- Сюда JS будет вставлять строки -->
+    </tbody>
+  </table>
 
-.name-cell {
-  font-weight 600;
-  font-size 15px;
-}
-.name-cell.first { color #ffd700; font-weight 800; }
-.name-cell.second { color #C0C0C0; font-weight 800; }
-.name-cell.third { color #CD7F32; font-weight 800; }
+  <div class="admin-controls-rating">
+    <input type="password" id="adminPassRating" placeholder="Админ-пароль" style="padding:10px; width:200px; border-radius:6px; border:1px solid #444; background:#1a1a2e; color:#fff; margin-right:10px;">
+    <button class="btn-admin" onclick="toggleAdminRating()">Войти как админ</button>
+  </div>
+</div>
 
-.champ-cell, .finalist-cell, .points-cell {
-  text-align center;
-}
-
-.champ-cell {
-  width 90px;
-  font-weight 700;
-  font-size 15px;
-}
-.champ-cell.first { color #ffd700; }
-.champ-cell.second { color #C0C0C0; }
-.champ-cell.third { color #CD7F32; }
-
-.finalist-cell {
-  width 90px;
-  font-weight 700;
-  font-size 15px;
-}
-.finalist-cell.first { color #ffd700; }
-.finalist-cell.second { color #C0C0C0; }
-.finalist-cell.third { color #CD7F32; }
-
-.points-cell {
-  width 100px;
-  font-weight 700;
-  color #ffd700;
-  font-size 18px;
-}
-.points-cell.zero { color rgba(255,215,0,0.3); font-size 14px; }
-
-.points-logo {
-  width 20px;
-  height 20px;
-  border-radius 50%;
-  vertical-align middle;
-  margin-left 6px;
-}
-
-.rating-empty {
-  text-align center;
-  color rgba(255,255,255,0.3);
-  font-size 14px;
-  padding 24px;
-  font-style italic;
-}
-
-.rating-note {
-  text-align center;
-  color rgba(255,255,255,0.4);
-  font-size 12px;
-  margin-top 12px;
-}
-
-.admin-section {
-  text-align center;
-  margin-top 20px;
-  display flex;
-  justify-content center;
-  gap 10px;
-  flex-wrap wrap;
-}
-.admin-section input {
-  padding 12px 18px;
-  border 1px solid rgba(255,255,255,0.2);
-  border-radius 8px;
-  background rgba(0,0,0,0.4);
-  color #fff;
-  font-size 14px;
-  width 200px;
-  font-family 'Inter', sans-serif;
-}
-.admin-section inputplaceholder { color rgba(255,255,255,0.4); }
-.btn-admin {
-  padding 12px 26px;
-  font-size 14px;
-  font-weight 700;
-  color #fff;
-  background linear-gradient(135deg, #0a2a6b, #1a4a8b);
-  border 2px solid rgba(255,255,255,0.3);
-  border-radius 50px;
-  cursor pointer;
-  font-family 'Inter', sans-serif;
-  transition transform 0.2s, box-shadow 0.2s;
-}
-.btn-adminhover {
-  transform translateY(-2px);
-  box-shadow 0 8px 22px rgba(10,42,107,0.6);
-}
-.btn-reset {
-  padding 10px 24px;
-  font-size 14px;
-  font-weight 700;
-  color #fff;
-  background linear-gradient(135deg, #c0392b, #e74c3c);
-  border 2px solid rgba(255,255,255,0.2);
-  border-radius 8px;
-  cursor pointer;
-  font-family 'Inter', sans-serif;
-  transition transform 0.2s, box-shadow 0.2s;
-  display none;
-  margin 16px auto 0;
-}
-.btn-resethover {
-  transform translateY(-2px);
-  box-shadow 0 6px 18px rgba(192,57,43,0.4);
-}
-style
-head
-body
-
-div class=rating-container
-  div class=rating-titleТурнирная таблицаdiv
-
-  div class=rating-table-wrapper
-    table class=rating-table
-      thead
-        tr
-          th class=pos-cell#th
-          thИгрокth
-          th class=champ-cellЧемпионth
-          th class=finalist-cellФиналистth
-          th class=points-cellЧак-чакth
-        tr
-      thead
-      tbody id=ratingBody
-        trtd colspan=5 class=rating-emptyИтоги появятся после финалаtdtr
-      tbody
-    table
-  div
-
-  div class=rating-noteПобедитель финала +2 чак-чака &middot; Финалист +1 чак-чакdiv
-
-  div class=admin-section
-    input type=password id=adminPassInput placeholder=Админ-пароль onkeydown=if(event.key==='Enter') toggleAdmin()
-    button class=btn-admin onclick=toggleAdmin()Войти как админbutton
-  div
-  button class=btn-reset id=btnReset onclick=resetRating()Сбросить чак-чакиbutton
-div
-
-script src=httpswww.gstatic.comfirebasejs10.12.0firebase-app-compat.jsscript
-script src=httpswww.gstatic.comfirebasejs10.12.0firebase-database-compat.jsscript
-script
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
 (function() {
   var firebaseConfig = {
-    apiKey AIzaSyCNQ0WFAiQjnISQjXJnHoln-wI64G2BqWs,
-    authDomain ak4ak-d948e.firebaseapp.com,
-    databaseURL httpsak4ak-d948e-default-rtdb.firebaseio.com,
-    projectId ak4ak-d948e,
-    storageBucket ak4ak-d948e.firebasestorage.app,
-    messagingSenderId 787151252619,
-    appId 1787151252619web05eff65dc74b01d6e8f88e,
-    measurementId G-DBB4YBNF2Q
+    apiKey: "AIzaSyCNQ0WFAiQjnISQjXJnHoln-wI64G2BqWs",
+    authDomain: "ak4ak-d948e.firebaseapp.com",
+    databaseURL: "https://ak4ak-d948e-default-rtdb.firebaseio.com",
+    projectId: "ak4ak-d948e",
+    storageBucket: "ak4ak-d948e.firebasestorage.app",
+    messagingSenderId: "787151252619",
+    appId: "1:787151252619:web:05eff65dc74b01d6e8f88e",
+    measurementId: "G-DBB4YBNF2Q"
   };
   firebase.initializeApp(firebaseConfig);
   var db = firebase.database();
 
   var ADMIN_PASSWORD = '12$sacreD';
   var isAdmin = false;
-  var LOGO_URL = 'https4ak4ak.moy.sulogo1.jpg';
 
-  function escapeHtml(t) {
-    if (!t) return '';
-    return String(t).replace(&g,&amp;).replace(g,&lt;).replace(g,&gt;).replace(g,&quot;).replace('g,&#039;);
-  }
+  // Конфигурация команд и их принадлежность к конференциям
+  var teamConfig = {
+    'Команда A': { name: 'Команда A', conf: 'west' },
+    'Команда B': { name: 'Команда B', conf: 'west' },
+    'Команда C': { name: 'Команда C', conf: 'west' },
+    'Команда D': { name: 'Команда D', conf: 'west' },
+    'Команда E': { name: 'Команда E', conf: 'east' },
+    'Команда F': { name: 'Команда F', conf: 'east' },
+    'Команда G': { name: 'Команда G', conf: 'east' },
+    'Команда H': { name: 'Команда H', conf: 'east' }
+  };
 
-  function renderRating(finalResult) {
-    var body = document.getElementById('ratingBody');
-    if (!finalResult  (!finalResult.winners && !finalResult.runnersUp)) {
-      body.innerHTML = 'trtd colspan=5 class=rating-emptyИтоги появятся после финалаtdtr';
-      return;
-    }
-    var winners = finalResult.winners  [];
-    var runnersUp = finalResult.runnersUp  [];
-
-    var stats = {};
-    winners.forEach(function(nick) {
-      if (!nick) return;
-      if (!stats[nick]) stats[nick] = { champ 0, finalist 0, points 0 };
-      stats[nick].champ++;
-      stats[nick].points += 2;
-    });
-    runnersUp.forEach(function(nick) {
-      if (!nick) return;
-      if (!stats[nick]) stats[nick] = { champ 0, finalist 0, points 0 };
-      stats[nick].finalist++;
-      stats[nick].points += 1;
-    });
-
-    var arr = Object.keys(stats).map(function(nick) {
-      return { nick nick, champ stats[nick].champ, finalist stats[nick].finalist, points stats[nick].points };
-    });
-
-    arr.sort(function(a, b) {
-      if (b.points !== a.points) return b.points - a.points;
-      if (b.champ !== a.champ) return b.champ - a.champ;
-      return b.finalist - a.finalist;
-    });
-
-    var html = '';
-    arr.forEach(function(row, i) {
-      var pos = i + 1;
-      var posClass = '';
-      var nameClass = '';
-      var champClass = '';
-      var finalistClass = '';
-      if (pos === 1) { posClass = nameClass = champClass = finalistClass = ' first'; }
-      else if (pos === 2) { posClass = nameClass = champClass = finalistClass = ' second'; }
-      else if (pos === 3) { posClass = nameClass = champClass = finalistClass = ' third'; }
-
-      var pointsClass = row.points  0  ''  ' zero';
-      var logoHtml = row.points  0  ' img src=' + LOGO_URL + ' class=points-logo alt='  '';
-
-      html += 'tr'
-        + 'td class=pos-cell' + posClass + '' + pos + 'td'
-        + 'td class=name-cell' + nameClass + '' + escapeHtml(row.nick) + 'td'
-        + 'td class=champ-cell' + champClass + '' + row.champ + 'td'
-        + 'td class=finalist-cell' + finalistClass + '' + row.finalist + 'td'
-        + 'td class=points-cell' + pointsClass + '' + row.points + logoHtml + 'td'
-        + 'tr';
-    });
-    body.innerHTML = html;
-  }
-
-  window.toggleAdmin = function() {
-    var p = document.getElementById('adminPassInput').value;
-    var btnReset = document.getElementById('btnReset');
+  function toggleAdminRating() {
+    var p = document.getElementById('adminPassRating').value;
     if (!isAdmin) {
       if (p === ADMIN_PASSWORD) {
         isAdmin = true;
-        document.getElementById('adminPassInput').value = '';
-        btnReset.style.display = 'block';
+        document.getElementById('adminPassRating').value = '';
         alert('Админ-режим включён!');
+        renderRating();
       } else { alert('Неверный пароль!'); }
     } else {
       isAdmin = false;
-      btnReset.style.display = 'none';
       alert('Админ-режим выключен.');
+      renderRating();
     }
-  };
+  }
 
-  window.resetRating = function() {
-    if (!isAdmin) return;
-    if (!confirm('Сбросить чак-чаки Результат финала будет удалён.')) return;
-    db.ref('playofffinalResult').remove().then(function() {
-      renderRating(null);
-      alert('Чак-чаки сброшены!');
+  function loadMatchesAndRender() {
+    db.ref('playoff/matches').once('value').then(function(snap) {
+      var matches = snap.val() || {};
+      renderRating(matches);
     });
-  };
+  }
 
-  db.ref('playofffinalResult').on('value', function(snap) {
-    renderRating(snap.val());
-  });
+  function renderRating(matches) {
+    var tbody = document.getElementById('ratingBody');
+    tbody.innerHTML = '';
+
+    // Считаем статистику по командам
+    var stats = {};
+    for (var mid in matches) {
+      var m = matches[mid];
+      if (!m) continue;
+      var left = m.left || [];
+      var right = m.right || [];
+      var winner = m.winner;
+
+      // Для простоты считаем, что если winner есть, то это победа стороны
+      if (winner === 'left') {
+        addTeamStat(left[0] || 'Unknown', 1, 0); // упрощённо: берём первого как представителя команды
+        addTeamStat(right[0] || 'Unknown', 0, 1);
+      } else if (winner === 'right') {
+        addTeamStat(left[0] || 'Unknown', 0, 1);
+        addTeamStat(right[0] || 'Unknown', 1, 0);
+      }
+    }
+
+    function addTeamStat(teamName, wins, losses) {
+      if (!stats[teamName]) stats[teamName] = { wins: 0, losses: 0 };
+      stats[teamName].wins += wins;
+      stats[teamName].losses += losses;
+    }
+
+    // Преобразуем в массив и сортируем: больше побед, меньше поражений
+    var list = Object.keys(stats).map(function(name) {
+      return { name: name, w: stats[name].wins, l: stats[name].losses };
+    }).sort(function(a, b) {
+      if (b.w !== a.w) return b.w - a.w;
+      return a.l - b.l;
+    });
+
+    list.forEach(function(item, idx) {
+      var rank = idx + 1;
+      var confClass = (teamConfig[item.name] && teamConfig[item.name].conf === 'west') ? 'west-team' : 'east-team';
+      var avatarChar = item.name ? item.name.charAt(0).toUpperCase() : '?';
+
+      var row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="rank-cell">${rank}</td>
+        <td class="team-name-cell ${confClass}">
+          <div class="team-avatar">${avatarChar}</div>
+          ${escapeHtml(item.name)}
+        </td>
+        <td><span class="stat-wins">${item.w}</span></td>
+        <td><span class="stat-losses">${item.l}</span></td>
+        <td class="stat-maps">—</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function escapeHtml(t) {
+    if (!t) return '';
+    return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  }
+
+  loadMatchesAndRender();
 })();
-script
-body
-html
+</script>
+</body>
+</html>
