@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -12,7 +12,12 @@
       padding: 0;
       background: transparent;
       font-family: 'Inter', sans-serif;
-      overflow: hidden;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body::-webkit-scrollbar {
+      display: none;
     }
 
     .rating-container {
@@ -274,13 +279,6 @@
           .replace(/'/g, "&#039;");
       }
 
-      function sendHeight() {
-        var h = document.body.scrollHeight;
-        if (h > 0) {
-          window.parent.postMessage({ type: 'ratingResize', height: h }, '*');
-        }
-      }
-
       function renderRating(allResults) {
         var body = document.getElementById('ratingBody');
 
@@ -308,7 +306,6 @@
         var hasData = Object.keys(stats).length > 0;
         if (!hasData) {
           body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
-          setTimeout(sendHeight, 100);
           return;
         }
 
@@ -345,7 +342,6 @@
             + '</tr>';
         });
         body.innerHTML = html;
-        setTimeout(sendHeight, 100);
       }
 
       window.toggleAdmin = function() {
@@ -356,7 +352,6 @@
             isAdmin = true;
             document.querySelector('.admin-section').style.display = 'none';
             btnReset.style.display = 'block';
-            setTimeout(sendHeight, 100);
           } else {
             alert('Неверный пароль!');
           }
@@ -364,7 +359,6 @@
           isAdmin = false;
           document.querySelector('.admin-section').style.display = 'flex';
           btnReset.style.display = 'none';
-          setTimeout(sendHeight, 100);
         }
       };
 
@@ -399,12 +393,6 @@
           renderRating(allResults);
         });
       }
-
-      window.addEventListener('load', function() {
-        sendHeight();
-        setTimeout(sendHeight, 500);
-        setTimeout(sendHeight, 2000);
-      });
 
       loadAndRender();
     })();
