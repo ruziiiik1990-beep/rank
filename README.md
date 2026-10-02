@@ -15,7 +15,7 @@
     }
 
     .rating-container {
-      max-width: 600px;
+      max-width: 650px;
       margin: 32px auto;
       padding: 20px;
       background: rgba(10, 42, 107, 0.55);
@@ -45,13 +45,12 @@
 
     .rating-table {
       width: 100%;
-      min-width: 520px;
+      min-width: 570px;
+      table-layout: fixed;
       border-collapse: collapse;
       color: #fff;
-      table-layout: fixed;
     }
 
-    /* Все ячейки — один фон, как у заголовков */
     .rating-table th,
     .rating-table td {
       padding: 0;
@@ -94,7 +93,6 @@
     .name-cell {
       font-weight: 600;
       font-size: 15px;
-      text-align: center;
     }
     .name-cell.first { color: #ffd700; font-weight: 800; }
     .name-cell.second { color: #C0C0C0; font-weight: 800; }
@@ -107,7 +105,7 @@
     }
 
     .champ-cell {
-      width: 90px;
+      width: 100px;
       font-weight: 700;
       font-size: 15px;
     }
@@ -116,7 +114,7 @@
     .champ-cell.third { color: #CD7F32; }
 
     .finalist-cell {
-      width: 90px;
+      width: 100px;
       font-weight: 700;
       font-size: 15px;
     }
@@ -125,7 +123,7 @@
     .finalist-cell.third { color: #CD7F32; }
 
     .points-cell {
-      width: 100px;
+      width: 110px;
       font-weight: 700;
       color: #ffd700;
       font-size: 18px;
@@ -236,7 +234,7 @@
       </table>
     </div>
 
-    <div class="rating-note">Победитель финала +2 чак-чака &middot; Финалист +1 чак-чак</div>
+    <div class="rating-note">Победитель финала +2 чак-чака · Финалист +1 чак-чак</div>
 
     <div class="admin-section">
       <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
@@ -326,11 +324,11 @@
           var logoHtml = (row.points > 0) ? (' <img src="' + LOGO_URL + '" class="points-logo" alt="Чак-чак">') : '';
 
           html += '<tr>'
-            + '<td class="pos-cell' + posClass + '"><span class="cell-content">' + pos + '</span></td>'
+            + '<td class="pos-cell"><span class="cell-content">' + pos + '</span></td>'
             + '<td><span class="cell-content"><span class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</span></span></td>'
-            + '<td class="champ-cell' + champClass + '"><span class="cell-content">' + row.champ + '</span></td>'
-            + '<td class="finalist-cell' + finalistClass + '"><span class="cell-content">' + row.finalist + '</span></td>'
-            + '<td class="points-cell' + pointsClass + '"><span class="cell-content">' + row.points + logoHtml + '</span></td>'
+            + '<td class="champ-cell"><span class="cell-content"><span class="champ-cell' + champClass + '">' + row.champ + '</span></span></td>'
+            + '<td class="finalist-cell"><span class="cell-content"><span class="finalist-cell' + finalistClass + '">' + row.finalist + '</span></span></td>'
+            + '<td class="points-cell"><span class="cell-content"><span class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</span></span></td>'
             + '</tr>';
         });
         body.innerHTML = html;
