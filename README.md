@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -11,11 +12,12 @@
       padding: 0;
       background: transparent;
       font-family: 'Inter', sans-serif;
+      overflow: hidden;
     }
 
     .rating-container {
       max-width: 650px;
-      margin: 32px auto;
+      margin: 0 auto;
       padding: 20px;
       background: rgba(10, 42, 107, 0.55);
       backdrop-filter: blur(10px);
@@ -38,13 +40,11 @@
     .rating-table-wrapper {
       display: flex;
       justify-content: center;
-      overflow-x: auto;
       margin: 0 auto;
     }
 
     .rating-table {
       width: 100%;
-      min-width: 570px;
       border-collapse: collapse;
       color: #fff;
       table-layout: fixed;
