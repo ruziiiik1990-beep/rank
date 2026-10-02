@@ -56,12 +56,16 @@
       text-align: center;
       vertical-align: middle;
       background: rgba(10, 42, 107, 0.65);
+      white-space: nowrap;
     }
 
     .cell-content {
       display: block;
       padding: 6px 16px;
       text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .rating-table th {
@@ -101,7 +105,7 @@
     }
 
     .champ-cell {
-      width: 100px;
+      width: 90px;
       font-weight: 700;
       font-size: 15px;
     }
@@ -110,7 +114,7 @@
     .champ-cell.third { color: #CD7F32; }
 
     .finalist-cell {
-      width: 100px;
+      width: 90px;
       font-weight: 700;
       font-size: 15px;
     }
@@ -119,7 +123,7 @@
     .finalist-cell.third { color: #CD7F32; }
 
     .points-cell {
-      width: 110px;
+      width: 120px;
       font-weight: 700;
       color: #ffd700;
       font-size: 18px;
