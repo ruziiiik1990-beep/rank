@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -10,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #c4c4c4;
+      background: transparent;
       font-family: 'Inter', sans-serif;
     }
 
@@ -18,12 +17,9 @@
       max-width: 600px;
       margin: 32px auto;
       padding: 20px;
-      background: rgba(10, 42, 107, 0.3);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(74, 158, 255, 0.35);
-      border-radius: 14px;
-      box-shadow: 0 4px 20px rgba(10, 42, 107, 0.3);
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
 
     .rating-title {
@@ -56,7 +52,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       text-align: left;
       vertical-align: middle;
-      background: rgba(10, 42, 107, 0.3);
+      background: transparent;
     }
 
     .rating-table th {
@@ -65,7 +61,7 @@
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 0.5px;
-      background: rgba(10, 42, 107, 0.3);
+      background: transparent;
     }
 
     .rating-table tbody tr:last-child td {
@@ -158,15 +154,13 @@
       padding: 12px 18px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.3);
       color: #fff;
       font-size: 14px;
       width: 200px;
       font-family: 'Inter', sans-serif;
     }
-    .admin-section input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-    }
+    .admin-section input::placeholder { color: rgba(255, 255, 255, 0.4); }
     .btn-admin {
       padding: 12px 26px;
       font-size: 14px;
@@ -360,4 +354,5 @@
       });
     })();
   </script>
-</body
+</body>
+</html>
