@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +12,12 @@
       padding: 0;
       background: transparent;
       font-family: 'Inter', sans-serif;
-      overflow: hidden;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body::-webkit-scrollbar {
+      display: none;
     }
 
     .rating-container {
@@ -237,7 +243,7 @@
       <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
       <button class="btn-admin" onclick="toggleAdmin()">Войти как админ</button>
     </div>
-    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить все чак-чаки</button>
+    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
   </div>
 
   <!-- Firebase SDK -->
@@ -273,24 +279,15 @@
           .replace(/'/g, "&#039;");
       }
 
-      function renderRating(allTournaments) {
+      function renderRating(allResults) {
         var body = document.getElementById('ratingBody');
-        if (!allTournaments) {
-          body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
-          return;
-        }
 
         var stats = {};
-        var hasAnyResult = false;
 
-        Object.keys(allTournaments).forEach(function(tId) {
-          var t = allTournaments[tId];
-          if (!t || !t.finalResult) return;
-          var fr = t.finalResult;
-          hasAnyResult = true;
-
-          var winners = fr.winners || [];
-          var runnersUp = fr.runnersUp || [];
+        allResults.forEach(function(finalResult) {
+          if (!finalResult) return;
+          var winners = finalResult.winners || [];
+          var runnersUp = finalResult.runnersUp || [];
 
           winners.forEach(function(nick) {
             if (!nick) return;
@@ -298,7 +295,6 @@
             stats[nick].champ++;
             stats[nick].points += 2;
           });
-
           runnersUp.forEach(function(nick) {
             if (!nick) return;
             if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
@@ -307,7 +303,8 @@
           });
         });
 
-        if (!hasAnyResult) {
+        var hasData = Object.keys(stats).length > 0;
+        if (!hasData) {
           body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
           return;
         }
@@ -367,26 +364,37 @@
 
       window.resetRating = function() {
         if (!isAdmin) return;
-        if (!confirm('Сбросить ВСЕ чак-чаки во всех турнирах? Это удалит результаты финалов всех турниров.')) return;
-
-        // Проходим по всем турнирам и удаляем finalResult
+        if (!confirm('Сбросить чак-чаки? Результаты всех финалов будут удалены.')) return;
         db.ref('playoff/tournaments').once('value').then(function(snap) {
           var tournaments = snap.val() || {};
           var updates = {};
-          Object.keys(tournaments).forEach(function(tId) {
-            updates['playoff/tournaments/' + tId + '/finalResult'] = null;
+          Object.keys(tournaments).forEach(function(tid) {
+            if (tournaments[tid] && tournaments[tid].finalResult) {
+              updates['playoff/tournaments/' + tid + '/finalResult'] = null;
+            }
           });
-          db.ref().update(updates).then(function() {
-            renderRating(null);
-            alert('Все чак-чаки сброшены!');
-          });
+          if (Object.keys(updates).length > 0) {
+            db.ref().update(updates);
+          }
+          renderRating([]);
+          alert('Чак-чаки сброшены!');
         });
       };
 
-      // Слушаем изменения во всех турнирах
-      db.ref('playoff/tournaments').on('value', function(snap) {
-        renderRating(snap.val());
-      });
+      function loadAndRender() {
+        db.ref('playoff/tournaments').on('value', function(snap) {
+          var tournaments = snap.val() || {};
+          var allResults = [];
+          Object.keys(tournaments).forEach(function(tid) {
+            if (tournaments[tid] && tournaments[tid].finalResult) {
+              allResults.push(tournaments[tid].finalResult);
+            }
+          });
+          renderRating(allResults);
+        });
+      }
+
+      loadAndRender();
     })();
   </script>
 </body>
