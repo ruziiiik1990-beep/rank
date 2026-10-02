@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -45,9 +46,9 @@
     .rating-table {
       width: 100%;
       min-width: 570px;
-      table-layout: fixed;
       border-collapse: collapse;
       color: #fff;
+      table-layout: fixed;
     }
 
     .rating-table th,
@@ -61,7 +62,7 @@
 
     .cell-content {
       display: block;
-      padding: 12px 16px;
+      padding: 6px 16px;
       text-align: center;
     }
 
@@ -71,7 +72,6 @@
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 0.5px;
-      background: rgba(10, 42, 107, 0.65);
     }
 
     .rating-table tbody tr:last-child td {
@@ -80,7 +80,6 @@
 
     .pos-cell {
       width: 40px;
-      text-align: center;
       font-weight: 800;
       font-size: 16px;
       color: rgba(255, 255, 255, 0.5);
@@ -233,7 +232,7 @@
       </table>
     </div>
 
-    <div class="rating-note">Победитель финала +2 чак-чака · Финалист +1 чак-чак</div>
+    <div class="rating-note">Победитель финала +2 чак-чака &middot; Финалист +1 чак-чак</div>
 
     <div class="admin-section">
       <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
@@ -341,7 +340,6 @@
             isAdmin = true;
             document.querySelector('.admin-section').style.display = 'none';
             btnReset.style.display = 'block';
-            alert('Админ-режим включён!');
           } else {
             alert('Неверный пароль!');
           }
@@ -349,7 +347,6 @@
           isAdmin = false;
           document.querySelector('.admin-section').style.display = 'flex';
           btnReset.style.display = 'none';
-          alert('Админ-режим выключен.');
         }
       };
 
