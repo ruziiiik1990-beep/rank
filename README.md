@@ -10,7 +10,6 @@
     body {
       margin: 0;
       padding: 0;
-      /* Самый задний фон удалён — страница прозрачная */
       background: transparent;
       font-family: 'Inter', sans-serif;
     }
@@ -19,9 +18,7 @@
       max-width: 600px;
       margin: 32px auto;
       padding: 20px;
-      /* Фон контейнера рейтинга */
       background: rgba(10, 42, 107, 0.55);
-      /* Эффект размытия поверх фона контейнера */
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(74, 158, 255, 0.45);
@@ -51,22 +48,23 @@
       min-width: 520px;
       border-collapse: collapse;
       color: #fff;
+      table-layout: fixed;
     }
 
-    /* Фон ячеек таблицы */
+    /* Все ячейки — один фон, как у заголовков */
     .rating-table th,
     .rating-table td {
       padding: 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      text-align: left;
+      text-align: center;
       vertical-align: middle;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(10, 42, 107, 0.65);
     }
 
-    /* Отступы только для текста */
     .cell-content {
       display: block;
       padding: 12px 16px;
+      text-align: center;
     }
 
     .rating-table th {
@@ -96,6 +94,7 @@
     .name-cell {
       font-weight: 600;
       font-size: 15px;
+      text-align: center;
     }
     .name-cell.first { color: #ffd700; font-weight: 800; }
     .name-cell.second { color: #C0C0C0; font-weight: 800; }
@@ -327,11 +326,11 @@
           var logoHtml = (row.points > 0) ? (' <img src="' + LOGO_URL + '" class="points-logo" alt="Чак-чак">') : '';
 
           html += '<tr>'
-            + '<td class="pos-cell"><span class="cell-content">' + pos + '</span></td>'
+            + '<td class="pos-cell' + posClass + '"><span class="cell-content">' + pos + '</span></td>'
             + '<td><span class="cell-content"><span class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</span></span></td>'
-            + '<td class="champ-cell"><span class="cell-content"><span class="champ-cell' + champClass + '">' + row.champ + '</span></span></td>'
-            + '<td class="finalist-cell"><span class="cell-content"><span class="finalist-cell' + finalistClass + '">' + row.finalist + '</span></span></td>'
-            + '<td class="points-cell"><span class="cell-content"><span class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</span></span></td>'
+            + '<td class="champ-cell' + champClass + '"><span class="cell-content">' + row.champ + '</span></td>'
+            + '<td class="finalist-cell' + finalistClass + '"><span class="cell-content">' + row.finalist + '</span></td>'
+            + '<td class="points-cell' + pointsClass + '"><span class="cell-content">' + row.points + logoHtml + '</span></td>'
             + '</tr>';
         });
         body.innerHTML = html;
@@ -343,7 +342,7 @@
         if (!isAdmin) {
           if (p === ADMIN_PASSWORD) {
             isAdmin = true;
-            document.getElementById('adminPassInput').value = '';
+            document.querySelector('.admin-section').style.display = 'none';
             btnReset.style.display = 'block';
             alert('Админ-режим включён!');
           } else {
@@ -351,6 +350,7 @@
           }
         } else {
           isAdmin = false;
+          document.querySelector('.admin-section').style.display = 'flex';
           btnReset.style.display = 'none';
           alert('Админ-режим выключен.');
         }
