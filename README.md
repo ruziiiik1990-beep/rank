@@ -10,7 +10,8 @@
     body {
       margin: 0;
       padding: 0;
-      background: #1a2535;
+      /* Самый задний фон удалён — страница прозрачная */
+      background: transparent;
       font-family: 'Inter', sans-serif;
     }
 
@@ -18,7 +19,9 @@
       max-width: 600px;
       margin: 32px auto;
       padding: 20px;
+      /* Фон контейнера рейтинга */
       background: rgba(10, 42, 107, 0.55);
+      /* Эффект размытия поверх фона контейнера */
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(74, 158, 255, 0.45);
@@ -50,6 +53,7 @@
       color: #fff;
     }
 
+    /* Фон ячеек таблицы */
     .rating-table th,
     .rating-table td {
       padding: 0;
@@ -59,6 +63,7 @@
       background: rgba(0, 0, 0, 0.25);
     }
 
+    /* Отступы только для текста */
     .cell-content {
       display: block;
       padding: 12px 16px;
@@ -241,6 +246,7 @@
     <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
   </div>
 
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
