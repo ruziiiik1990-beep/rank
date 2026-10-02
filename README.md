@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -9,7 +10,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: transparent;
+      background: #1a2535;
       font-family: 'Inter', sans-serif;
     }
 
@@ -17,9 +18,12 @@
       max-width: 600px;
       margin: 32px auto;
       padding: 20px;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      background: rgba(10, 42, 107, 0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(74, 158, 255, 0.45);
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .rating-title {
@@ -48,20 +52,25 @@
 
     .rating-table th,
     .rating-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       text-align: left;
       vertical-align: middle;
-      background: transparent;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .cell-content {
+      display: block;
+      padding: 12px 16px;
     }
 
     .rating-table th {
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.95);
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 0.5px;
-      background: transparent;
+      background: rgba(10, 42, 107, 0.65);
     }
 
     .rating-table tbody tr:last-child td {
@@ -129,7 +138,7 @@
 
     .rating-empty {
       text-align: center;
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.35);
       font-size: 14px;
       padding: 24px;
       font-style: italic;
@@ -137,7 +146,7 @@
 
     .rating-note {
       text-align: center;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.45);
       font-size: 12px;
       margin-top: 12px;
     }
@@ -154,13 +163,15 @@
       padding: 12px 18px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
       color: #fff;
       font-size: 14px;
       width: 200px;
       font-family: 'Inter', sans-serif;
     }
-    .admin-section input::placeholder { color: rgba(255, 255, 255, 0.4); }
+    .admin-section input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
     .btn-admin {
       padding: 12px 26px;
       font-size: 14px;
@@ -175,7 +186,7 @@
     }
     .btn-admin:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(10, 42, 107, 0.6);
+      box-shadow: 0 8px 28px rgba(10, 42, 107, 0.7);
     }
     .btn-reset {
       padding: 10px 24px;
@@ -193,7 +204,7 @@
     }
     .btn-reset:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(192, 57, 43, 0.4);
+      box-shadow: 0 6px 22px rgba(192, 57, 43, 0.5);
     }
   </style>
 </head>
@@ -206,11 +217,11 @@
       <table class="rating-table">
         <thead>
           <tr>
-            <th class="pos-cell">#</th>
-            <th>Игрок</th>
-            <th class="champ-cell">Чемпион</th>
-            <th class="finalist-cell">Финалист</th>
-            <th class="points-cell">Чак-чак</th>
+            <th class="pos-cell"><span class="cell-content">#</span></th>
+            <th><span class="cell-content">Игрок</span></th>
+            <th class="champ-cell"><span class="cell-content">Чемпион</span></th>
+            <th class="finalist-cell"><span class="cell-content">Финалист</span></th>
+            <th class="points-cell"><span class="cell-content">Чак-чак</span></th>
           </tr>
         </thead>
         <tbody id="ratingBody">
@@ -230,7 +241,6 @@
     <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
   </div>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
@@ -311,11 +321,11 @@
           var logoHtml = (row.points > 0) ? (' <img src="' + LOGO_URL + '" class="points-logo" alt="Чак-чак">') : '';
 
           html += '<tr>'
-            + '<td class="pos-cell' + posClass + '">' + pos + '</td>'
-            + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</td>'
-            + '<td class="champ-cell' + champClass + '">' + row.champ + '</td>'
-            + '<td class="finalist-cell' + finalistClass + '">' + row.finalist + '</td>'
-            + '<td class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</td>'
+            + '<td class="pos-cell"><span class="cell-content">' + pos + '</span></td>'
+            + '<td><span class="cell-content"><span class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</span></span></td>'
+            + '<td class="champ-cell"><span class="cell-content"><span class="champ-cell' + champClass + '">' + row.champ + '</span></span></td>'
+            + '<td class="finalist-cell"><span class="cell-content"><span class="finalist-cell' + finalistClass + '">' + row.finalist + '</span></span></td>'
+            + '<td class="points-cell"><span class="cell-content"><span class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</span></span></td>'
             + '</tr>';
         });
         body.innerHTML = html;
