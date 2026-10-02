@@ -208,7 +208,7 @@
 </head>
 <body>
 
-  <div class="rating-container">
+  <div class="rating-container" id="ratingContainer">
     <div class="rating-title">Турнирная таблица</div>
 
     <div class="rating-table-wrapper">
@@ -262,6 +262,24 @@
       var isAdmin = false;
       var LOGO_URL = 'https://4ak4ak.moy.su/logo1.jpg';
 
+      // === Авто-высота iframe для родительской страницы ===
+      function sendHeight() {
+        var h = document.body.scrollHeight;
+        window.parent.postMessage({ type: 'ratingResize', height: h }, '*');
+      }
+      window.addEventListener('load', function() {
+        sendHeight();
+        // Повторяем через небольшую задержку (на случай если шрифты/данные догружаются)
+        setTimeout(sendHeight, 500);
+        setTimeout(sendHeight, 1500);
+      });
+      // Observer для динамического контента
+      if (typeof ResizeObserver !== 'undefined') {
+        var ro = new ResizeObserver(function() { sendHeight(); });
+        ro.observe(document.body);
+      }
+      // ================================================
+
       function escapeHtml(t) {
         if (!t) return '';
         return String(t)
@@ -299,6 +317,7 @@
         var hasData = Object.keys(stats).length > 0;
         if (!hasData) {
           body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
+          sendHeight();
           return;
         }
 
@@ -335,6 +354,7 @@
             + '</tr>';
         });
         body.innerHTML = html;
+        sendHeight();
       }
 
       window.toggleAdmin = function() {
@@ -345,6 +365,7 @@
             isAdmin = true;
             document.querySelector('.admin-section').style.display = 'none';
             btnReset.style.display = 'block';
+            sendHeight();
           } else {
             alert('Неверный пароль!');
           }
@@ -352,6 +373,7 @@
           isAdmin = false;
           document.querySelector('.admin-section').style.display = 'flex';
           btnReset.style.display = 'none';
+          sendHeight();
         }
       };
 
