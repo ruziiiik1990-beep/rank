@@ -63,9 +63,6 @@
       display: block;
       padding: 6px 16px;
       text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .rating-table th {
@@ -123,7 +120,7 @@
     .finalist-cell.third { color: #CD7F32; }
 
     .points-cell {
-      width: 120px;
+      width: 110px;
       font-weight: 700;
       color: #ffd700;
       font-size: 18px;
@@ -240,7 +237,7 @@
       <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
       <button class="btn-admin" onclick="toggleAdmin()">Войти как админ</button>
     </div>
-    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
+    <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить все чак-чаки</button>
   </div>
 
   <!-- Firebase SDK -->
@@ -276,28 +273,44 @@
           .replace(/'/g, "&#039;");
       }
 
-      function renderRating(finalResult) {
+      function renderRating(allTournaments) {
         var body = document.getElementById('ratingBody');
-        if (!finalResult || (!finalResult.winners && !finalResult.runnersUp)) {
+        if (!allTournaments) {
           body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
           return;
         }
-        var winners = finalResult.winners || [];
-        var runnersUp = finalResult.runnersUp || [];
 
         var stats = {};
-        winners.forEach(function(nick) {
-          if (!nick) return;
-          if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
-          stats[nick].champ++;
-          stats[nick].points += 2;
+        var hasAnyResult = false;
+
+        Object.keys(allTournaments).forEach(function(tId) {
+          var t = allTournaments[tId];
+          if (!t || !t.finalResult) return;
+          var fr = t.finalResult;
+          hasAnyResult = true;
+
+          var winners = fr.winners || [];
+          var runnersUp = fr.runnersUp || [];
+
+          winners.forEach(function(nick) {
+            if (!nick) return;
+            if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
+            stats[nick].champ++;
+            stats[nick].points += 2;
+          });
+
+          runnersUp.forEach(function(nick) {
+            if (!nick) return;
+            if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
+            stats[nick].finalist++;
+            stats[nick].points += 1;
+          });
         });
-        runnersUp.forEach(function(nick) {
-          if (!nick) return;
-          if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
-          stats[nick].finalist++;
-          stats[nick].points += 1;
-        });
+
+        if (!hasAnyResult) {
+          body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
+          return;
+        }
 
         var arr = Object.keys(stats).map(function(nick) {
           return { nick: nick, champ: stats[nick].champ, finalist: stats[nick].finalist, points: stats[nick].points };
@@ -354,14 +367,24 @@
 
       window.resetRating = function() {
         if (!isAdmin) return;
-        if (!confirm('Сбросить чак-чаки? Результат финала будет удалён.')) return;
-        db.ref('playoff/finalResult').remove().then(function() {
-          renderRating(null);
-          alert('Чак-чаки сброшены!');
+        if (!confirm('Сбросить ВСЕ чак-чаки во всех турнирах? Это удалит результаты финалов всех турниров.')) return;
+
+        // Проходим по всем турнирам и удаляем finalResult
+        db.ref('playoff/tournaments').once('value').then(function(snap) {
+          var tournaments = snap.val() || {};
+          var updates = {};
+          Object.keys(tournaments).forEach(function(tId) {
+            updates['playoff/tournaments/' + tId + '/finalResult'] = null;
+          });
+          db.ref().update(updates).then(function() {
+            renderRating(null);
+            alert('Все чак-чаки сброшены!');
+          });
         });
       };
 
-      db.ref('playoff/finalResult').on('value', function(snap) {
+      // Слушаем изменения во всех турнирах
+      db.ref('playoff/tournaments').on('value', function(snap) {
         renderRating(snap.val());
       });
     })();
