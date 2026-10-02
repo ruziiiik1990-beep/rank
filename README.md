@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -48,6 +47,28 @@
       margin: 0 auto;
     }
 
+    .rating-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(74, 158, 255, 0.5) rgba(10, 42, 107, 0.3);
+      border-radius: 8px;
+    }
+    .rating-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+    .rating-scroll::-webkit-scrollbar-track {
+      background: rgba(10, 42, 107, 0.3);
+      border-radius: 4px;
+    }
+    .rating-scroll::-webkit-scrollbar-thumb {
+      background: rgba(74, 158, 255, 0.5);
+      border-radius: 4px;
+    }
+    .rating-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(74, 158, 255, 0.7);
+    }
+
     .rating-table {
       width: 100%;
       border-collapse: collapse;
@@ -77,6 +98,9 @@
       text-transform: uppercase;
       font-size: 12px;
       letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
 
     .rating-table tbody tr:last-child td {
@@ -218,23 +242,25 @@
   <div class="rating-container">
     <div class="rating-title">Турнирная таблица</div>
 
-    <div class="rating-table-wrapper">
-      <table class="rating-table">
-        <thead>
-          <tr>
-            <th class="pos-cell"><span class="cell-content">#</span></th>
-            <th><span class="cell-content">Игрок</span></th>
-            <th class="champ-cell"><span class="cell-content">Чемпион</span></th>
-            <th class="finalist-cell"><span class="cell-content">Финалист</span></th>
-            <th class="points-cell"><span class="cell-content">Чак-чак</span></th>
-          </tr>
-        </thead>
-        <tbody id="ratingBody">
-          <tr>
-            <td colspan="5" class="rating-empty">Итоги появятся после финала</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="rating-scroll">
+      <div class="rating-table-wrapper">
+        <table class="rating-table">
+          <thead>
+            <tr>
+              <th class="pos-cell"><span class="cell-content">#</span></th>
+              <th><span class="cell-content">Игрок</span></th>
+              <th class="champ-cell"><span class="cell-content">Чемпион</span></th>
+              <th class="finalist-cell"><span class="cell-content">Финалист</span></th>
+              <th class="points-cell"><span class="cell-content">Чак-чак</span></th>
+            </tr>
+          </thead>
+          <tbody id="ratingBody">
+            <tr>
+              <td colspan="5" class="rating-empty">Итоги появятся после финала</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="rating-note">Победитель финала +2 чак-чака &middot; Финалист +1 чак-чак</div>
