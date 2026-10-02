@@ -1,3 +1,4 @@
+
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -11,6 +12,7 @@
       padding: 0;
       background: transparent;
       font-family: 'Inter', sans-serif;
+      overflow: hidden;
     }
 
     .rating-container {
@@ -208,7 +210,7 @@
 </head>
 <body>
 
-  <div class="rating-container" id="ratingContainer">
+  <div class="rating-container">
     <div class="rating-title">Турнирная таблица</div>
 
     <div class="rating-table-wrapper">
@@ -262,24 +264,6 @@
       var isAdmin = false;
       var LOGO_URL = 'https://4ak4ak.moy.su/logo1.jpg';
 
-      // === Авто-высота iframe для родительской страницы ===
-      function sendHeight() {
-        var h = document.body.scrollHeight;
-        window.parent.postMessage({ type: 'ratingResize', height: h }, '*');
-      }
-      window.addEventListener('load', function() {
-        sendHeight();
-        // Повторяем через небольшую задержку (на случай если шрифты/данные догружаются)
-        setTimeout(sendHeight, 500);
-        setTimeout(sendHeight, 1500);
-      });
-      // Observer для динамического контента
-      if (typeof ResizeObserver !== 'undefined') {
-        var ro = new ResizeObserver(function() { sendHeight(); });
-        ro.observe(document.body);
-      }
-      // ================================================
-
       function escapeHtml(t) {
         if (!t) return '';
         return String(t)
@@ -288,6 +272,13 @@
           .replace(/>/g, "&gt;")
           .replace(/"/g, "&quot;")
           .replace(/'/g, "&#039;");
+      }
+
+      function sendHeight() {
+        var h = document.body.scrollHeight;
+        if (h > 0) {
+          window.parent.postMessage({ type: 'ratingResize', height: h }, '*');
+        }
       }
 
       function renderRating(allResults) {
@@ -317,7 +308,7 @@
         var hasData = Object.keys(stats).length > 0;
         if (!hasData) {
           body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
-          sendHeight();
+          setTimeout(sendHeight, 100);
           return;
         }
 
@@ -354,7 +345,7 @@
             + '</tr>';
         });
         body.innerHTML = html;
-        sendHeight();
+        setTimeout(sendHeight, 100);
       }
 
       window.toggleAdmin = function() {
@@ -365,7 +356,7 @@
             isAdmin = true;
             document.querySelector('.admin-section').style.display = 'none';
             btnReset.style.display = 'block';
-            sendHeight();
+            setTimeout(sendHeight, 100);
           } else {
             alert('Неверный пароль!');
           }
@@ -373,7 +364,7 @@
           isAdmin = false;
           document.querySelector('.admin-section').style.display = 'flex';
           btnReset.style.display = 'none';
-          sendHeight();
+          setTimeout(sendHeight, 100);
         }
       };
 
@@ -408,6 +399,12 @@
           renderRating(allResults);
         });
       }
+
+      window.addEventListener('load', function() {
+        sendHeight();
+        setTimeout(sendHeight, 500);
+        setTimeout(sendHeight, 2000);
+      });
 
       loadAndRender();
     })();
