@@ -1,279 +1,278 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Рейтинг турнира</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+html lang=ru
+head
+meta charset=UTF-8
+meta name=viewport content=width=device-width, initial-scale=1.0
+titleРейтинг турнираtitle
+style
+@import url('httpsfonts.googleapis.comcss2family=Interwght@400;500;600;700;800&display=swap');
 
-body { margin: 0; padding: 0; background: #c4c4c4; font-family: 'Inter', sans-serif; }
+body { margin 0; padding 0; background #c4c4c4; font-family 'Inter', sans-serif; }
 
 .rating-container {
-  max-width: 600px;
-  margin: 32px auto;
-  padding: 20px;
-  background: rgba(10,42,107,0.3);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(74,158,255,0.35);
-  border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(10,42,107,0.3);
+  max-width 600px;
+  margin 32px auto;
+  padding 20px;
+  background rgba(10,42,107,0.3);
+  backdrop-filter blur(8px);
+  -webkit-backdrop-filter blur(8px);
+  border 1px solid rgba(74,158,255,0.35);
+  border-radius 14px;
+  box-shadow 0 4px 20px rgba(10,42,107,0.3);
 }
 
 .rating-title {
-  color: #4a9eff;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
+  color #4a9eff;
+  font-size 20px;
+  font-weight 700;
+  margin-bottom 16px;
+  text-transform uppercase;
+  letter-spacing 1px;
+  text-align center;
 }
 
 .rating-table-wrapper {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
-  margin: 0 auto;
+  display flex;
+  justify-content center;
+  overflow-x auto;
+  margin 0 auto;
 }
 
 .rating-table {
-  width: 100%;
-  min-width: 520px;
-  border-collapse: collapse;
-  color: #fff;
+  width 100%;
+  min-width 520px;
+  border-collapse collapse;
+  color #fff;
 }
 
 .rating-table th,
 .rating-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  text-align: left;
-  vertical-align: middle;
-  background: rgba(10,42,107,0.3);
+  padding 10px 14px;
+  border-bottom 1px solid rgba(255,255,255,0.1);
+  text-align left;
+  vertical-align middle;
+  background rgba(10,42,107,0.3);
 }
 
 .rating-table th {
-  font-weight: 700;
-  color: rgba(255,255,255,0.9);
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  background: rgba(10,42,107,0.3);
+  font-weight 700;
+  color rgba(255,255,255,0.9);
+  text-transform uppercase;
+  font-size 12px;
+  letter-spacing 0.5px;
+  background rgba(10,42,107,0.3);
 }
 
-.rating-table tr:last-child td { border-bottom: none; }
+.rating-table trlast-child td { border-bottom none; }
 
 .pos-cell {
-  width: 40px;
-  text-align: center;
-  font-weight: 800;
-  font-size: 16px;
-  color: rgba(255,255,255,0.5);
+  width 40px;
+  text-align center;
+  font-weight 800;
+  font-size 16px;
+  color rgba(255,255,255,0.5);
 }
-.pos-cell.first { color: #ffd700; font-size: 18px; }
-.pos-cell.second { color: #C0C0C0; font-size: 17px; }
-.pos-cell.third { color: #CD7F32; font-size: 16px; }
+.pos-cell.first { color #ffd700; font-size 18px; }
+.pos-cell.second { color #C0C0C0; font-size 17px; }
+.pos-cell.third { color #CD7F32; font-size 16px; }
 
 .name-cell {
-  font-weight: 600;
-  font-size: 15px;
+  font-weight 600;
+  font-size 15px;
 }
-.name-cell.first { color: #ffd700; font-weight: 800; }
-.name-cell.second { color: #C0C0C0; font-weight: 800; }
-.name-cell.third { color: #CD7F32; font-weight: 800; }
+.name-cell.first { color #ffd700; font-weight 800; }
+.name-cell.second { color #C0C0C0; font-weight 800; }
+.name-cell.third { color #CD7F32; font-weight 800; }
 
 .champ-cell, .finalist-cell, .points-cell {
-  text-align: center;
+  text-align center;
 }
 
 .champ-cell {
-  width: 90px;
-  font-weight: 700;
-  font-size: 15px;
+  width 90px;
+  font-weight 700;
+  font-size 15px;
 }
-.champ-cell.first { color: #ffd700; }
-.champ-cell.second { color: #C0C0C0; }
-.champ-cell.third { color: #CD7F32; }
+.champ-cell.first { color #ffd700; }
+.champ-cell.second { color #C0C0C0; }
+.champ-cell.third { color #CD7F32; }
 
 .finalist-cell {
-  width: 90px;
-  font-weight: 700;
-  font-size: 15px;
+  width 90px;
+  font-weight 700;
+  font-size 15px;
 }
-.finalist-cell.first { color: #ffd700; }
-.finalist-cell.second { color: #C0C0C0; }
-.finalist-cell.third { color: #CD7F32; }
+.finalist-cell.first { color #ffd700; }
+.finalist-cell.second { color #C0C0C0; }
+.finalist-cell.third { color #CD7F32; }
 
 .points-cell {
-  width: 100px;
-  font-weight: 700;
-  color: #ffd700;
-  font-size: 18px;
+  width 100px;
+  font-weight 700;
+  color #ffd700;
+  font-size 18px;
 }
-.points-cell.zero { color: rgba(255,215,0,0.3); font-size: 14px; }
+.points-cell.zero { color rgba(255,215,0,0.3); font-size 14px; }
 
 .points-logo {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-left: 6px;
+  width 20px;
+  height 20px;
+  border-radius 50%;
+  vertical-align middle;
+  margin-left 6px;
 }
 
 .rating-empty {
-  text-align: center;
-  color: rgba(255,255,255,0.3);
-  font-size: 14px;
-  padding: 24px;
-  font-style: italic;
+  text-align center;
+  color rgba(255,255,255,0.3);
+  font-size 14px;
+  padding 24px;
+  font-style italic;
 }
 
 .rating-note {
-  text-align: center;
-  color: rgba(255,255,255,0.4);
-  font-size: 12px;
-  margin-top: 12px;
+  text-align center;
+  color rgba(255,255,255,0.4);
+  font-size 12px;
+  margin-top 12px;
 }
 
 .admin-section {
-  text-align: center;
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  text-align center;
+  margin-top 20px;
+  display flex;
+  justify-content center;
+  gap 10px;
+  flex-wrap wrap;
 }
 .admin-section input {
-  padding: 12px 18px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  background: rgba(0,0,0,0.4);
-  color: #fff;
-  font-size: 14px;
-  width: 200px;
-  font-family: 'Inter', sans-serif;
+  padding 12px 18px;
+  border 1px solid rgba(255,255,255,0.2);
+  border-radius 8px;
+  background rgba(0,0,0,0.4);
+  color #fff;
+  font-size 14px;
+  width 200px;
+  font-family 'Inter', sans-serif;
 }
-.admin-section input::placeholder { color: rgba(255,255,255,0.4); }
+.admin-section inputplaceholder { color rgba(255,255,255,0.4); }
 .btn-admin {
-  padding: 12px 26px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, #0a2a6b, #1a4a8b);
-  border: 2px solid rgba(255,255,255,0.3);
-  border-radius: 50px;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: transform 0.2s, box-shadow 0.2s;
+  padding 12px 26px;
+  font-size 14px;
+  font-weight 700;
+  color #fff;
+  background linear-gradient(135deg, #0a2a6b, #1a4a8b);
+  border 2px solid rgba(255,255,255,0.3);
+  border-radius 50px;
+  cursor pointer;
+  font-family 'Inter', sans-serif;
+  transition transform 0.2s, box-shadow 0.2s;
 }
-.btn-admin:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(10,42,107,0.6);
+.btn-adminhover {
+  transform translateY(-2px);
+  box-shadow 0 8px 22px rgba(10,42,107,0.6);
 }
 .btn-reset {
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, #c0392b, #e74c3c);
-  border: 2px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: none;
-  margin: 16px auto 0;
+  padding 10px 24px;
+  font-size 14px;
+  font-weight 700;
+  color #fff;
+  background linear-gradient(135deg, #c0392b, #e74c3c);
+  border 2px solid rgba(255,255,255,0.2);
+  border-radius 8px;
+  cursor pointer;
+  font-family 'Inter', sans-serif;
+  transition transform 0.2s, box-shadow 0.2s;
+  display none;
+  margin 16px auto 0;
 }
-.btn-reset:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(192,57,43,0.4);
+.btn-resethover {
+  transform translateY(-2px);
+  box-shadow 0 6px 18px rgba(192,57,43,0.4);
 }
-</style>
-</head>
-<body>
+style
+head
+body
 
-<div class="rating-container">
-  <div class="rating-title">Турнирная таблица</div>
+div class=rating-container
+  div class=rating-titleТурнирная таблицаdiv
 
-  <div class="rating-table-wrapper">
-    <table class="rating-table">
-      <thead>
-        <tr>
-          <th class="pos-cell">#</th>
-          <th>Игрок</th>
-          <th class="champ-cell">Чемпион</th>
-          <th class="finalist-cell">Финалист</th>
-          <th class="points-cell">Чак-чак</th>
-        </tr>
-      </thead>
-      <tbody id="ratingBody">
-        <tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>
-      </tbody>
-    </table>
-  </div>
+  div class=rating-table-wrapper
+    table class=rating-table
+      thead
+        tr
+          th class=pos-cell#th
+          thИгрокth
+          th class=champ-cellЧемпионth
+          th class=finalist-cellФиналистth
+          th class=points-cellЧак-чакth
+        tr
+      thead
+      tbody id=ratingBody
+        trtd colspan=5 class=rating-emptyИтоги появятся после финалаtdtr
+      tbody
+    table
+  div
 
-  <div class="rating-note">Победитель финала: +2 чак-чака &middot; Финалист: +1 чак-чак</div>
+  div class=rating-noteПобедитель финала +2 чак-чака &middot; Финалист +1 чак-чакdiv
 
-  <div class="admin-section">
-    <input type="password" id="adminPassInput" placeholder="Админ-пароль" onkeydown="if(event.key==='Enter') toggleAdmin()">
-    <button class="btn-admin" onclick="toggleAdmin()">Войти как админ</button>
-  </div>
-  <button class="btn-reset" id="btnReset" onclick="resetRating()">Сбросить чак-чаки</button>
-</div>
+  div class=admin-section
+    input type=password id=adminPassInput placeholder=Админ-пароль onkeydown=if(event.key==='Enter') toggleAdmin()
+    button class=btn-admin onclick=toggleAdmin()Войти как админbutton
+  div
+  button class=btn-reset id=btnReset onclick=resetRating()Сбросить чак-чакиbutton
+div
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script>
+script src=httpswww.gstatic.comfirebasejs10.12.0firebase-app-compat.jsscript
+script src=httpswww.gstatic.comfirebasejs10.12.0firebase-database-compat.jsscript
+script
 (function() {
   var firebaseConfig = {
-    apiKey: "AIzaSyCNQ0WFAiQjnISQjXJnHoln-wI64G2BqWs",
-    authDomain: "ak4ak-d948e.firebaseapp.com",
-    databaseURL: "https://ak4ak-d948e-default-rtdb.firebaseio.com",
-    projectId: "ak4ak-d948e",
-    storageBucket: "ak4ak-d948e.firebasestorage.app",
-    messagingSenderId: "787151252619",
-    appId: "1:787151252619:web:05eff65dc74b01d6e8f88e",
-    measurementId: "G-DBB4YBNF2Q"
+    apiKey AIzaSyCNQ0WFAiQjnISQjXJnHoln-wI64G2BqWs,
+    authDomain ak4ak-d948e.firebaseapp.com,
+    databaseURL httpsak4ak-d948e-default-rtdb.firebaseio.com,
+    projectId ak4ak-d948e,
+    storageBucket ak4ak-d948e.firebasestorage.app,
+    messagingSenderId 787151252619,
+    appId 1787151252619web05eff65dc74b01d6e8f88e,
+    measurementId G-DBB4YBNF2Q
   };
   firebase.initializeApp(firebaseConfig);
   var db = firebase.database();
 
-  var ADMIN_PASSWORD = '12\$sacreD';
+  var ADMIN_PASSWORD = '12$sacreD';
   var isAdmin = false;
-  var LOGO_URL = 'https://4ak4ak.moy.su/logo1.jpg';
+  var LOGO_URL = 'https4ak4ak.moy.sulogo1.jpg';
 
   function escapeHtml(t) {
     if (!t) return '';
-    return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+    return String(t).replace(&g,&amp;).replace(g,&lt;).replace(g,&gt;).replace(g,&quot;).replace('g,&#039;);
   }
 
   function renderRating(finalResult) {
     var body = document.getElementById('ratingBody');
-    if (!finalResult || (!finalResult.winners && !finalResult.runnersUp)) {
-      body.innerHTML = '<tr><td colspan="5" class="rating-empty">Итоги появятся после финала</td></tr>';
+    if (!finalResult  (!finalResult.winners && !finalResult.runnersUp)) {
+      body.innerHTML = 'trtd colspan=5 class=rating-emptyИтоги появятся после финалаtdtr';
       return;
     }
-    var winners = finalResult.winners || [];
-    var runnersUp = finalResult.runnersUp || [];
+    var winners = finalResult.winners  [];
+    var runnersUp = finalResult.runnersUp  [];
 
     var stats = {};
     winners.forEach(function(nick) {
       if (!nick) return;
-      if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
+      if (!stats[nick]) stats[nick] = { champ 0, finalist 0, points 0 };
       stats[nick].champ++;
       stats[nick].points += 2;
     });
     runnersUp.forEach(function(nick) {
       if (!nick) return;
-      if (!stats[nick]) stats[nick] = { champ: 0, finalist: 0, points: 0 };
+      if (!stats[nick]) stats[nick] = { champ 0, finalist 0, points 0 };
       stats[nick].finalist++;
       stats[nick].points += 1;
     });
 
     var arr = Object.keys(stats).map(function(nick) {
-      return { nick: nick, champ: stats[nick].champ, finalist: stats[nick].finalist, points: stats[nick].points };
+      return { nick nick, champ stats[nick].champ, finalist stats[nick].finalist, points stats[nick].points };
     });
 
     arr.sort(function(a, b) {
@@ -293,16 +292,16 @@ body { margin: 0; padding: 0; background: #c4c4c4; font-family: 'Inter', sans-se
       else if (pos === 2) { posClass = nameClass = champClass = finalistClass = ' second'; }
       else if (pos === 3) { posClass = nameClass = champClass = finalistClass = ' third'; }
 
-      var pointsClass = row.points > 0 ? '' : ' zero';
-      var logoHtml = row.points > 0 ? ' <img src="' + LOGO_URL + '" class="points-logo" alt="">' : '';
+      var pointsClass = row.points  0  ''  ' zero';
+      var logoHtml = row.points  0  ' img src=' + LOGO_URL + ' class=points-logo alt='  '';
 
-      html += '<tr>'
-        + '<td class="pos-cell' + posClass + '">' + pos + '</td>'
-        + '<td class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</td>'
-        + '<td class="champ-cell' + champClass + '">' + row.champ + '</td>'
-        + '<td class="finalist-cell' + finalistClass + '">' + row.finalist + '</td>'
-        + '<td class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</td>'
-        + '</tr>';
+      html += 'tr'
+        + 'td class=pos-cell' + posClass + '' + pos + 'td'
+        + 'td class=name-cell' + nameClass + '' + escapeHtml(row.nick) + 'td'
+        + 'td class=champ-cell' + champClass + '' + row.champ + 'td'
+        + 'td class=finalist-cell' + finalistClass + '' + row.finalist + 'td'
+        + 'td class=points-cell' + pointsClass + '' + row.points + logoHtml + 'td'
+        + 'tr';
     });
     body.innerHTML = html;
   }
@@ -326,17 +325,17 @@ body { margin: 0; padding: 0; background: #c4c4c4; font-family: 'Inter', sans-se
 
   window.resetRating = function() {
     if (!isAdmin) return;
-    if (!confirm('Сбросить чак-чаки? Результат финала будет удалён.')) return;
-    db.ref('playoff/finalResult').remove().then(function() {
+    if (!confirm('Сбросить чак-чаки Результат финала будет удалён.')) return;
+    db.ref('playofffinalResult').remove().then(function() {
       renderRating(null);
       alert('Чак-чаки сброшены!');
     });
   };
 
-  db.ref('playoff/finalResult').on('value', function(snap) {
+  db.ref('playofffinalResult').on('value', function(snap) {
     renderRating(snap.val());
   });
 })();
-</script>
-</body>
-</html>
+script
+body
+html
