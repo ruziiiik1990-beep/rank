@@ -125,6 +125,17 @@
     .name-cell.second { color: #C0C0C0; font-weight: 800; }
     .name-cell.third { color: #CD7F32; font-weight: 800; }
 
+    .name-cell a {
+      color: inherit;
+      text-decoration: none;
+      transition: text-decoration 0.2s, opacity 0.2s;
+      cursor: pointer;
+    }
+    .name-cell a:hover {
+      text-decoration: underline;
+      opacity: 0.85;
+    }
+
     .champ-cell,
     .finalist-cell,
     .points-cell {
@@ -361,7 +372,7 @@
 
           html += '<tr>'
             + '<td class="pos-cell"><span class="cell-content">' + pos + '</span></td>'
-            + '<td><span class="cell-content"><span class="name-cell' + nameClass + '">' + escapeHtml(row.nick) + '</span></span></td>'
+            + '<td><span class="cell-content"><span class="name-cell' + nameClass + '"><a href="/index/8-0-' + encodeURIComponent(row.nick) + '" target="_top">' + escapeHtml(row.nick) + '</a></span></span></td>'
             + '<td class="champ-cell"><span class="cell-content"><span class="champ-cell' + champClass + '">' + row.champ + '</span></span></td>'
             + '<td class="finalist-cell"><span class="cell-content"><span class="finalist-cell' + finalistClass + '">' + row.finalist + '</span></span></td>'
             + '<td class="points-cell"><span class="cell-content"><span class="points-cell' + pointsClass + '">' + row.points + logoHtml + '</span></span></td>'
